@@ -1,0 +1,2405 @@
+
+main.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000b1e  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         000000e8  00800060  00000b1e  00000bb2  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000003d  00800148  00800148  00000c9a  2**0
+                  ALLOC
+  3 .debug_aranges 00000020  00000000  00000000  00000c9a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 0000022f  00000000  00000000  00000cba  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000dda  00000000  00000000  00000ee9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000275  00000000  00000000  00001cc3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000d9d  00000000  00000000  00001f38  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000160  00000000  00000000  00002cd8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000031b  00000000  00000000  00002e38  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000852  00000000  00000000  00003153  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 000001f8  00000000  00000000  000039a5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	11 e0       	ldi	r17, 0x01	; 1
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	ee e1       	ldi	r30, 0x1E	; 30
+  68:	fb e0       	ldi	r31, 0x0B	; 11
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	a8 34       	cpi	r26, 0x48	; 72
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+
+00000076 <__do_clear_bss>:
+  76:	11 e0       	ldi	r17, 0x01	; 1
+  78:	a8 e4       	ldi	r26, 0x48	; 72
+  7a:	b1 e0       	ldi	r27, 0x01	; 1
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a5 38       	cpi	r26, 0x85	; 133
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 8c 04 	call	0x918	; 0x918 <main>
+  8a:	0c 94 8d 05 	jmp	0xb1a	; 0xb1a <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <peek_a_boo>:
+	}
+	dataDir_MrLCDsCrib =0xFF;				// all output
+}
+void peek_a_boo()
+{
+	MrLCDsControl |=1<<LightSwitch;			// en=on
+  92:	95 9a       	sbi	0x12, 5	; 18
+	asm volatile ("nop");
+  94:	00 00       	nop
+	asm volatile ("nop");
+  96:	00 00       	nop
+	MrLCDsControl &= ~1<<LightSwitch;		// en=off
+  98:	82 b3       	in	r24, 0x12	; 18
+  9a:	80 7c       	andi	r24, 0xC0	; 192
+  9c:	82 bb       	out	0x12, r24	; 18
+}
+  9e:	08 95       	ret
+
+000000a0 <check_if_MrLCD_is_busy>:
+	_delay_ms(2);
+}
+
+void check_if_MrLCD_is_busy(void)
+{
+	dataDir_MrLCDsCrib =0;					// all input
+  a0:	17 ba       	out	0x17, r1	; 23
+	MrLCDsControl |=1<<ReadWrite;			//RW=on
+  a2:	97 9a       	sbi	0x12, 7	; 18
+	MrLCDsControl &= ~1<<BipolarMood;		//RS=off command
+  a4:	82 b3       	in	r24, 0x12	; 18
+  a6:	88 7f       	andi	r24, 0xF8	; 248
+  a8:	82 bb       	out	0x12, r24	; 18
+  aa:	02 c0       	rjmp	.+4      	; 0xb0 <check_if_MrLCD_is_busy+0x10>
+	while(MrLCDsCrib >=0x80)				// if busy then is greater than 0x80 0b10000000
+	{
+		peek_a_boo();						// light goeas on and off
+  ac:	0e 94 49 00 	call	0x92	; 0x92 <peek_a_boo>
+void check_if_MrLCD_is_busy(void)
+{
+	dataDir_MrLCDsCrib =0;					// all input
+	MrLCDsControl |=1<<ReadWrite;			//RW=on
+	MrLCDsControl &= ~1<<BipolarMood;		//RS=off command
+	while(MrLCDsCrib >=0x80)				// if busy then is greater than 0x80 0b10000000
+  b0:	c7 99       	sbic	0x18, 7	; 24
+  b2:	fc cf       	rjmp	.-8      	; 0xac <check_if_MrLCD_is_busy+0xc>
+	{
+		peek_a_boo();						// light goeas on and off
+	}
+	dataDir_MrLCDsCrib =0xFF;				// all output
+  b4:	8f ef       	ldi	r24, 0xFF	; 255
+  b6:	87 bb       	out	0x17, r24	; 23
+}
+  b8:	08 95       	ret
+
+000000ba <send_a_command>:
+	asm volatile ("nop");
+	MrLCDsControl &= ~1<<LightSwitch;		// en=off
+}
+
+void send_a_command(unsigned char command)
+{
+  ba:	1f 93       	push	r17
+  bc:	18 2f       	mov	r17, r24
+	check_if_MrLCD_is_busy();								//checking if lcd is busy
+  be:	0e 94 50 00 	call	0xa0	; 0xa0 <check_if_MrLCD_is_busy>
+	MrLCDsCrib = command;									//setting portb as command because PORT acts as output
+  c2:	18 bb       	out	0x18, r17	; 24
+	MrLCDsControl &= ~(1<<ReadWrite|1<<BipolarMood);		//RW off for readwrite and RS off for command
+  c4:	82 b3       	in	r24, 0x12	; 18
+  c6:	8b 77       	andi	r24, 0x7B	; 123
+  c8:	82 bb       	out	0x12, r24	; 18
+	peek_a_boo();	
+  ca:	0e 94 49 00 	call	0x92	; 0x92 <peek_a_boo>
+	MrLCDsCrib=0;											//portB 0 so no error
+  ce:	18 ba       	out	0x18, r1	; 24
+}
+  d0:	1f 91       	pop	r17
+  d2:	08 95       	ret
+
+000000d4 <LCD_clear>:
+	send_a_command(0b00001110);					// cursor related
+	_delay_us(50);
+}
+void LCD_clear()
+{
+	dataDir_MrLCDsControl |=1<<LightSwitch | 1<<ReadWrite | 1<<BipolarMood ; // all are output
+  d4:	81 b3       	in	r24, 0x11	; 17
+  d6:	84 6a       	ori	r24, 0xA4	; 164
+  d8:	81 bb       	out	0x11, r24	; 17
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  da:	80 e3       	ldi	r24, 0x30	; 48
+  dc:	95 e7       	ldi	r25, 0x75	; 117
+  de:	01 97       	sbiw	r24, 0x01	; 1
+  e0:	f1 f7       	brne	.-4      	; 0xde <LCD_clear+0xa>
+	_delay_ms(15);
+	send_a_command(0x01);
+  e2:	81 e0       	ldi	r24, 0x01	; 1
+  e4:	0e 94 5d 00 	call	0xba	; 0xba <send_a_command>
+  e8:	80 ea       	ldi	r24, 0xA0	; 160
+  ea:	9f e0       	ldi	r25, 0x0F	; 15
+  ec:	01 97       	sbiw	r24, 0x01	; 1
+  ee:	f1 f7       	brne	.-4      	; 0xec <LCD_clear+0x18>
+	_delay_ms(2);
+}
+  f0:	08 95       	ret
+
+000000f2 <LCD_initial>:
+		
+
+//function defination
+
+void LCD_initial(void)
+{
+  f2:	1f 93       	push	r17
+	dataDir_MrLCDsControl |=1<<LightSwitch | 1<<ReadWrite | 1<<BipolarMood ; // all are output
+  f4:	81 b3       	in	r24, 0x11	; 17
+  f6:	84 6a       	ori	r24, 0xA4	; 164
+  f8:	81 bb       	out	0x11, r24	; 17
+  fa:	80 e3       	ldi	r24, 0x30	; 48
+  fc:	95 e7       	ldi	r25, 0x75	; 117
+  fe:	01 97       	sbiw	r24, 0x01	; 1
+ 100:	f1 f7       	brne	.-4      	; 0xfe <LCD_initial+0xc>
+	_delay_ms(15);
+		
+	send_a_command(0x01); 						// clear the screen 0x01 = 0b000000001
+ 102:	81 e0       	ldi	r24, 0x01	; 1
+ 104:	0e 94 5d 00 	call	0xba	; 0xba <send_a_command>
+ 108:	80 ea       	ldi	r24, 0xA0	; 160
+ 10a:	9f e0       	ldi	r25, 0x0F	; 15
+ 10c:	01 97       	sbiw	r24, 0x01	; 1
+ 10e:	f1 f7       	brne	.-4      	; 0x10c <LCD_initial+0x1a>
+	_delay_ms(2);
+		
+	send_a_command(0x38);						// 8 bit Data
+ 110:	88 e3       	ldi	r24, 0x38	; 56
+ 112:	0e 94 5d 00 	call	0xba	; 0xba <send_a_command>
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 116:	15 e8       	ldi	r17, 0x85	; 133
+ 118:	81 2f       	mov	r24, r17
+ 11a:	8a 95       	dec	r24
+ 11c:	f1 f7       	brne	.-4      	; 0x11a <LCD_initial+0x28>
+	_delay_us(50);
+	
+	send_a_command(0b00001110);					// cursor related
+ 11e:	8e e0       	ldi	r24, 0x0E	; 14
+ 120:	0e 94 5d 00 	call	0xba	; 0xba <send_a_command>
+ 124:	1a 95       	dec	r17
+ 126:	f1 f7       	brne	.-4      	; 0x124 <LCD_initial+0x32>
+	_delay_us(50);
+}
+ 128:	1f 91       	pop	r17
+ 12a:	08 95       	ret
+
+0000012c <send_a_character>:
+	MrLCDsControl &= ~(1<<ReadWrite|1<<BipolarMood);		//RW off for readwrite and RS off for command
+	peek_a_boo();	
+	MrLCDsCrib=0;											//portB 0 so no error
+}
+void send_a_character(unsigned char character)
+{
+ 12c:	1f 93       	push	r17
+ 12e:	18 2f       	mov	r17, r24
+	check_if_MrLCD_is_busy();
+ 130:	0e 94 50 00 	call	0xa0	; 0xa0 <check_if_MrLCD_is_busy>
+	MrLCDsCrib = character;
+ 134:	18 bb       	out	0x18, r17	; 24
+	MrLCDsControl &= ~(1<<ReadWrite);
+ 136:	97 98       	cbi	0x12, 7	; 18
+	MrLCDsControl |= 1<<BipolarMood;						//RS on for character
+ 138:	92 9a       	sbi	0x12, 2	; 18
+	peek_a_boo();
+ 13a:	0e 94 49 00 	call	0x92	; 0x92 <peek_a_boo>
+	MrLCDsCrib=0;	
+ 13e:	18 ba       	out	0x18, r1	; 24
+}
+ 140:	1f 91       	pop	r17
+ 142:	08 95       	ret
+
+00000144 <string_location>:
+void string_location(uint8_t x,uint8_t y)
+{
+	send_a_command(0x80+first_column_of_display[y]+x);
+ 144:	80 58       	subi	r24, 0x80	; 128
+ 146:	e5 e4       	ldi	r30, 0x45	; 69
+ 148:	f1 e0       	ldi	r31, 0x01	; 1
+ 14a:	e6 0f       	add	r30, r22
+ 14c:	f1 1d       	adc	r31, r1
+ 14e:	90 81       	ld	r25, Z
+ 150:	89 0f       	add	r24, r25
+ 152:	0e 94 5d 00 	call	0xba	; 0xba <send_a_command>
+}
+ 156:	08 95       	ret
+
+00000158 <send_a_string>:
+void send_a_string(char *string_of_characters)
+{
+ 158:	cf 93       	push	r28
+ 15a:	df 93       	push	r29
+ 15c:	ec 01       	movw	r28, r24
+ 15e:	03 c0       	rjmp	.+6      	; 0x166 <send_a_string+0xe>
+	while(*string_of_characters>0)
+	{
+		send_a_character(*string_of_characters++);
+ 160:	21 96       	adiw	r28, 0x01	; 1
+ 162:	0e 94 96 00 	call	0x12c	; 0x12c <send_a_character>
+{
+	send_a_command(0x80+first_column_of_display[y]+x);
+}
+void send_a_string(char *string_of_characters)
+{
+	while(*string_of_characters>0)
+ 166:	88 81       	ld	r24, Y
+ 168:	88 23       	and	r24, r24
+ 16a:	d1 f7       	brne	.-12     	; 0x160 <send_a_string+0x8>
+	{
+		send_a_character(*string_of_characters++);
+	}
+}
+ 16c:	df 91       	pop	r29
+ 16e:	cf 91       	pop	r28
+ 170:	08 95       	ret
+
+00000172 <USART_Init>:
+
+void USART_Init(unsigned long BAUDRATE)				/* USART initialize function */
+{
+
+
+	UCSRB |= (1 << RXEN) | (1 << TXEN) | (1 << RXCIE);			/* Enable USART transmitter and receiver */
+ 172:	2a b1       	in	r18, 0x0a	; 10
+ 174:	28 69       	ori	r18, 0x98	; 152
+ 176:	2a b9       	out	0x0a, r18	; 10
+	UCSRA |= (1 << U2X);
+ 178:	59 9a       	sbi	0x0b, 1	; 11
+	UCSRC |= (1 << URSEL)| (1 << UCSZ0) | (1 << UCSZ1);	/* Write USCRC for 8 bit data and 1 stop bit */
+ 17a:	20 b5       	in	r18, 0x20	; 32
+ 17c:	26 68       	ori	r18, 0x86	; 134
+ 17e:	20 bd       	out	0x20, r18	; 32
+	UBRRL = BAUDRATE;							/* Load UBRRL with lower 8 bit of prescale value */
+ 180:	69 b9       	out	0x09, r22	; 9
+	UBRRH = (BAUDRATE >> 8);					/* Load UBRRH with upper 8 bit of prescale value */
+ 182:	67 2f       	mov	r22, r23
+ 184:	78 2f       	mov	r23, r24
+ 186:	89 2f       	mov	r24, r25
+ 188:	99 27       	eor	r25, r25
+ 18a:	60 bd       	out	0x20, r22	; 32
+}
+ 18c:	08 95       	ret
+
+0000018e <USART_Init_GSM>:
+
+void USART_Init_GSM(unsigned long BAUDRATE)				/* USART initialize function */
+{
+ 18e:	9b 01       	movw	r18, r22
+ 190:	ac 01       	movw	r20, r24
+	UCSRB |= (1 << RXEN) | (1 << TXEN) | (1 << RXCIE);		/* Enable USART transmitter and receiver */									
+ 192:	8a b1       	in	r24, 0x0a	; 10
+ 194:	88 69       	ori	r24, 0x98	; 152
+ 196:	8a b9       	out	0x0a, r24	; 10
+	UCSRC |= (1 << URSEL)| (1 << UCSZ0) | (1 << UCSZ1);	/* Write USCRC for 8 bit data and 1 stop bit */
+ 198:	80 b5       	in	r24, 0x20	; 32
+ 19a:	86 68       	ori	r24, 0x86	; 134
+ 19c:	80 bd       	out	0x20, r24	; 32
+	UBRRL = BAUD_PRESCALE;							/* Load UBRRL with lower 8 bit of prescale value */
+ 19e:	64 e0       	ldi	r22, 0x04	; 4
+ 1a0:	22 0f       	add	r18, r18
+ 1a2:	33 1f       	adc	r19, r19
+ 1a4:	44 1f       	adc	r20, r20
+ 1a6:	55 1f       	adc	r21, r21
+ 1a8:	6a 95       	dec	r22
+ 1aa:	d1 f7       	brne	.-12     	; 0x1a0 <USART_Init_GSM+0x12>
+ 1ac:	60 e0       	ldi	r22, 0x00	; 0
+ 1ae:	72 e1       	ldi	r23, 0x12	; 18
+ 1b0:	8a e7       	ldi	r24, 0x7A	; 122
+ 1b2:	90 e0       	ldi	r25, 0x00	; 0
+ 1b4:	0e 94 60 05 	call	0xac0	; 0xac0 <__udivmodsi4>
+ 1b8:	c9 01       	movw	r24, r18
+ 1ba:	da 01       	movw	r26, r20
+ 1bc:	21 50       	subi	r18, 0x01	; 1
+ 1be:	29 b9       	out	0x09, r18	; 9
+	UBRRH = (BAUD_PRESCALE >> 8);					/* Load UBRRH with upper 8 bit of prescale value */
+ 1c0:	01 97       	sbiw	r24, 0x01	; 1
+ 1c2:	a1 09       	sbc	r26, r1
+ 1c4:	b1 09       	sbc	r27, r1
+ 1c6:	89 2f       	mov	r24, r25
+ 1c8:	9a 2f       	mov	r25, r26
+ 1ca:	ab 2f       	mov	r26, r27
+ 1cc:	bb 27       	eor	r27, r27
+ 1ce:	80 bd       	out	0x20, r24	; 32
+}
+ 1d0:	08 95       	ret
+
+000001d2 <USART_RxChar>:
+
+char USART_RxChar()									/* Data receiving function */
+{
+	while (!(UCSRA & (1 << RXC)));					/* Wait until new data receive */
+ 1d2:	5f 9b       	sbis	0x0b, 7	; 11
+ 1d4:	fe cf       	rjmp	.-4      	; 0x1d2 <USART_RxChar>
+	return(UDR);									/* Get and return received data */
+ 1d6:	8c b1       	in	r24, 0x0c	; 12
+}
+ 1d8:	08 95       	ret
+
+000001da <USART_TxChar>:
+
+void USART_TxChar(char data)						/* Data transmitting function */
+{
+	UDR = data;										/* Write data to be transmitting in UDR */
+ 1da:	8c b9       	out	0x0c, r24	; 12
+	while (!(UCSRA & (1<<UDRE)));					/* Wait until data transmit and buffer get empty */
+ 1dc:	5d 9b       	sbis	0x0b, 5	; 11
+ 1de:	fe cf       	rjmp	.-4      	; 0x1dc <USART_TxChar+0x2>
+}
+ 1e0:	08 95       	ret
+
+000001e2 <usart_getch>:
+
+unsigned int usart_getch()
+{
+	while((UCSRA & (1<<RXC)) == 0);
+ 1e2:	5f 9b       	sbis	0x0b, 7	; 11
+ 1e4:	fe cf       	rjmp	.-4      	; 0x1e2 <usart_getch>
+	return UDR;
+ 1e6:	8c b1       	in	r24, 0x0c	; 12
+}
+ 1e8:	90 e0       	ldi	r25, 0x00	; 0
+ 1ea:	08 95       	ret
+
+000001ec <USART_SendString>:
+
+void USART_SendString(char *str)					/* Send string of USART data function */
+{
+ 1ec:	fc 01       	movw	r30, r24
+ 1ee:	04 c0       	rjmp	.+8      	; 0x1f8 <USART_SendString+0xc>
+	return(UDR);									/* Get and return received data */
+}
+
+void USART_TxChar(char data)						/* Data transmitting function */
+{
+	UDR = data;										/* Write data to be transmitting in UDR */
+ 1f0:	8c b9       	out	0x0c, r24	; 12
+	while (!(UCSRA & (1<<UDRE)));					/* Wait until data transmit and buffer get empty */
+ 1f2:	5d 9b       	sbis	0x0b, 5	; 11
+ 1f4:	fe cf       	rjmp	.-4      	; 0x1f2 <USART_SendString+0x6>
+ 1f6:	31 96       	adiw	r30, 0x01	; 1
+}
+
+void USART_SendString(char *str)					/* Send string of USART data function */
+{
+	int i=0;
+	while (str[i]!=0)
+ 1f8:	80 81       	ld	r24, Z
+ 1fa:	88 23       	and	r24, r24
+ 1fc:	c9 f7       	brne	.-14     	; 0x1f0 <USART_SendString+0x4>
+	{
+		USART_TxChar(str[i]);						/* Send each char of string till the NULL */
+		i++;
+	}
+}
+ 1fe:	08 95       	ret
+
+00000200 <gsm_msg_send>:
+
+
+void gsm_msg_send(unsigned char cmd_5[],unsigned char cmd_4[]);
+
+void gsm_msg_send(unsigned char cmd_5[],unsigned char cmd_4[])
+{
+ 200:	ef 92       	push	r14
+ 202:	ff 92       	push	r15
+ 204:	0f 93       	push	r16
+ 206:	1f 93       	push	r17
+ 208:	df 93       	push	r29
+ 20a:	cf 93       	push	r28
+ 20c:	cd b7       	in	r28, 0x3d	; 61
+ 20e:	de b7       	in	r29, 0x3e	; 62
+ 210:	66 97       	sbiw	r28, 0x16	; 22
+ 212:	0f b6       	in	r0, 0x3f	; 63
+ 214:	f8 94       	cli
+ 216:	de bf       	out	0x3e, r29	; 62
+ 218:	0f be       	out	0x3f, r0	; 63
+ 21a:	cd bf       	out	0x3d, r28	; 61
+ 21c:	18 2f       	mov	r17, r24
+ 21e:	09 2f       	mov	r16, r25
+ 220:	f6 2e       	mov	r15, r22
+ 222:	e7 2e       	mov	r14, r23
+	unsigned int z;
+
+	unsigned char cmd_1[]={"AT"};
+ 224:	de 01       	movw	r26, r28
+ 226:	11 96       	adiw	r26, 0x01	; 1
+ 228:	e0 e9       	ldi	r30, 0x90	; 144
+ 22a:	f0 e0       	ldi	r31, 0x00	; 0
+ 22c:	83 e0       	ldi	r24, 0x03	; 3
+ 22e:	01 90       	ld	r0, Z+
+ 230:	0d 92       	st	X+, r0
+ 232:	81 50       	subi	r24, 0x01	; 1
+ 234:	e1 f7       	brne	.-8      	; 0x22e <gsm_msg_send+0x2e>
+	unsigned char cmd_2[]={"AT+CMGF=1"};
+ 236:	de 01       	movw	r26, r28
+ 238:	1d 96       	adiw	r26, 0x0d	; 13
+ 23a:	e3 e9       	ldi	r30, 0x93	; 147
+ 23c:	f0 e0       	ldi	r31, 0x00	; 0
+ 23e:	8a e0       	ldi	r24, 0x0A	; 10
+ 240:	01 90       	ld	r0, Z+
+ 242:	0d 92       	st	X+, r0
+ 244:	81 50       	subi	r24, 0x01	; 1
+ 246:	e1 f7       	brne	.-8      	; 0x240 <gsm_msg_send+0x40>
+	unsigned char cmd_3[]={"AT+CMGS="};
+ 248:	de 01       	movw	r26, r28
+ 24a:	14 96       	adiw	r26, 0x04	; 4
+ 24c:	ed e9       	ldi	r30, 0x9D	; 157
+ 24e:	f0 e0       	ldi	r31, 0x00	; 0
+ 250:	89 e0       	ldi	r24, 0x09	; 9
+ 252:	01 90       	ld	r0, Z+
+ 254:	0d 92       	st	X+, r0
+ 256:	81 50       	subi	r24, 0x01	; 1
+ 258:	e1 f7       	brne	.-8      	; 0x252 <gsm_msg_send+0x52>
+	//unsigned char cmd_4[]={"Your Driver is Drunk"};
+	//unsigned char cmd_5[]={"+9779843358599"};
+
+	LCD_clear();
+ 25a:	0e 94 6a 00 	call	0xd4	; 0xd4 <LCD_clear>
+	USART_Init_GSM(9600);	
+ 25e:	60 e8       	ldi	r22, 0x80	; 128
+ 260:	75 e2       	ldi	r23, 0x25	; 37
+ 262:	80 e0       	ldi	r24, 0x00	; 0
+ 264:	90 e0       	ldi	r25, 0x00	; 0
+ 266:	0e 94 c7 00 	call	0x18e	; 0x18e <USART_Init_GSM>
+	
+	//sei();
+	LCD_clear();
+ 26a:	0e 94 6a 00 	call	0xd4	; 0xd4 <LCD_clear>
+ 26e:	88 ee       	ldi	r24, 0xE8	; 232
+ 270:	93 e0       	ldi	r25, 0x03	; 3
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 272:	28 ec       	ldi	r18, 0xC8	; 200
+ 274:	30 e0       	ldi	r19, 0x00	; 0
+ 276:	f9 01       	movw	r30, r18
+ 278:	31 97       	sbiw	r30, 0x01	; 1
+ 27a:	f1 f7       	brne	.-4      	; 0x278 <gsm_msg_send+0x78>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 27c:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 27e:	d9 f7       	brne	.-10     	; 0x276 <gsm_msg_send+0x76>
+	_delay_ms(100);
+	
+	string_location(1,0);
+ 280:	81 e0       	ldi	r24, 0x01	; 1
+ 282:	60 e0       	ldi	r22, 0x00	; 0
+ 284:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+	send_a_string("Got Location");
+ 288:	80 e6       	ldi	r24, 0x60	; 96
+ 28a:	90 e0       	ldi	r25, 0x00	; 0
+ 28c:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+ 290:	88 ee       	ldi	r24, 0xE8	; 232
+ 292:	93 e0       	ldi	r25, 0x03	; 3
+ 294:	28 ec       	ldi	r18, 0xC8	; 200
+ 296:	30 e0       	ldi	r19, 0x00	; 0
+ 298:	f9 01       	movw	r30, r18
+ 29a:	31 97       	sbiw	r30, 0x01	; 1
+ 29c:	f1 f7       	brne	.-4      	; 0x29a <gsm_msg_send+0x9a>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 29e:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 2a0:	d9 f7       	brne	.-10     	; 0x298 <gsm_msg_send+0x98>
+	_delay_ms(100);
+	string_location(1,1);
+ 2a2:	81 e0       	ldi	r24, 0x01	; 1
+ 2a4:	61 e0       	ldi	r22, 0x01	; 1
+ 2a6:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+	send_a_string("GSM Working...");
+ 2aa:	8d e6       	ldi	r24, 0x6D	; 109
+ 2ac:	90 e0       	ldi	r25, 0x00	; 0
+ 2ae:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+ 2b2:	de 01       	movw	r26, r28
+ 2b4:	11 96       	adiw	r26, 0x01	; 1
+ 2b6:	28 ec       	ldi	r18, 0xC8	; 200
+ 2b8:	30 e0       	ldi	r19, 0x00	; 0
+ 2ba:	09 c0       	rjmp	.+18     	; 0x2ce <gsm_msg_send+0xce>
+				}
+	_delay_ms(100);
+	*/		
+			for(z=0;cmd_1[z]!='\0';z++)				//for at command
+			{
+				UDR = cmd_1[z];
+ 2bc:	8c b9       	out	0x0c, r24	; 12
+ 2be:	88 ee       	ldi	r24, 0xE8	; 232
+ 2c0:	93 e0       	ldi	r25, 0x03	; 3
+ 2c2:	f9 01       	movw	r30, r18
+ 2c4:	31 97       	sbiw	r30, 0x01	; 1
+ 2c6:	f1 f7       	brne	.-4      	; 0x2c4 <gsm_msg_send+0xc4>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 2c8:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 2ca:	d9 f7       	brne	.-10     	; 0x2c2 <gsm_msg_send+0xc2>
+ 2cc:	11 96       	adiw	r26, 0x01	; 1
+					send_a_string("Sending Message");
+					_delay_ms(40);					
+				}
+	_delay_ms(100);
+	*/		
+			for(z=0;cmd_1[z]!='\0';z++)				//for at command
+ 2ce:	8c 91       	ld	r24, X
+ 2d0:	88 23       	and	r24, r24
+ 2d2:	a1 f7       	brne	.-24     	; 0x2bc <gsm_msg_send+0xbc>
+			{
+				UDR = cmd_1[z];
+				_delay_ms(100);
+			}		
+			UDR = ('\r');								//to enter the command
+ 2d4:	8d e0       	ldi	r24, 0x0D	; 13
+ 2d6:	8c b9       	out	0x0c, r24	; 12
+ 2d8:	88 e8       	ldi	r24, 0x88	; 136
+ 2da:	93 e1       	ldi	r25, 0x13	; 19
+ 2dc:	28 ec       	ldi	r18, 0xC8	; 200
+ 2de:	30 e0       	ldi	r19, 0x00	; 0
+ 2e0:	f9 01       	movw	r30, r18
+ 2e2:	31 97       	sbiw	r30, 0x01	; 1
+ 2e4:	f1 f7       	brne	.-4      	; 0x2e2 <gsm_msg_send+0xe2>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 2e6:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 2e8:	d9 f7       	brne	.-10     	; 0x2e0 <gsm_msg_send+0xe0>
+ 2ea:	de 01       	movw	r26, r28
+ 2ec:	1d 96       	adiw	r26, 0x0d	; 13
+ 2ee:	28 ec       	ldi	r18, 0xC8	; 200
+ 2f0:	30 e0       	ldi	r19, 0x00	; 0
+ 2f2:	09 c0       	rjmp	.+18     	; 0x306 <gsm_msg_send+0x106>
+			_delay_ms(500);
+			
+			for(z=0;cmd_2[z]!='\0';z++)				//for sms mode command
+			{
+				UDR = cmd_2[z];
+ 2f4:	8c b9       	out	0x0c, r24	; 12
+ 2f6:	88 ee       	ldi	r24, 0xE8	; 232
+ 2f8:	93 e0       	ldi	r25, 0x03	; 3
+ 2fa:	f9 01       	movw	r30, r18
+ 2fc:	31 97       	sbiw	r30, 0x01	; 1
+ 2fe:	f1 f7       	brne	.-4      	; 0x2fc <gsm_msg_send+0xfc>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 300:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 302:	d9 f7       	brne	.-10     	; 0x2fa <gsm_msg_send+0xfa>
+ 304:	11 96       	adiw	r26, 0x01	; 1
+				_delay_ms(100);
+			}		
+			UDR = ('\r');								//to enter the command
+			_delay_ms(500);
+			
+			for(z=0;cmd_2[z]!='\0';z++)				//for sms mode command
+ 306:	8c 91       	ld	r24, X
+ 308:	88 23       	and	r24, r24
+ 30a:	a1 f7       	brne	.-24     	; 0x2f4 <gsm_msg_send+0xf4>
+			{
+				UDR = cmd_2[z];
+				_delay_ms(100);
+			}			
+			UDR = ('\r');
+ 30c:	8d e0       	ldi	r24, 0x0D	; 13
+ 30e:	8c b9       	out	0x0c, r24	; 12
+ 310:	88 e8       	ldi	r24, 0x88	; 136
+ 312:	93 e1       	ldi	r25, 0x13	; 19
+ 314:	28 ec       	ldi	r18, 0xC8	; 200
+ 316:	30 e0       	ldi	r19, 0x00	; 0
+ 318:	f9 01       	movw	r30, r18
+ 31a:	31 97       	sbiw	r30, 0x01	; 1
+ 31c:	f1 f7       	brne	.-4      	; 0x31a <gsm_msg_send+0x11a>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 31e:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 320:	d9 f7       	brne	.-10     	; 0x318 <gsm_msg_send+0x118>
+ 322:	de 01       	movw	r26, r28
+ 324:	14 96       	adiw	r26, 0x04	; 4
+ 326:	28 ec       	ldi	r18, 0xC8	; 200
+ 328:	30 e0       	ldi	r19, 0x00	; 0
+ 32a:	09 c0       	rjmp	.+18     	; 0x33e <gsm_msg_send+0x13e>
+			_delay_ms(500);
+			
+			for(z=0;cmd_3[z]!='\0';z++)				//for sms sending command
+			{
+				UDR = cmd_3[z];
+ 32c:	8c b9       	out	0x0c, r24	; 12
+ 32e:	88 ee       	ldi	r24, 0xE8	; 232
+ 330:	93 e0       	ldi	r25, 0x03	; 3
+ 332:	f9 01       	movw	r30, r18
+ 334:	31 97       	sbiw	r30, 0x01	; 1
+ 336:	f1 f7       	brne	.-4      	; 0x334 <gsm_msg_send+0x134>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 338:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 33a:	d9 f7       	brne	.-10     	; 0x332 <gsm_msg_send+0x132>
+ 33c:	11 96       	adiw	r26, 0x01	; 1
+				_delay_ms(100);
+			}			
+			UDR = ('\r');
+			_delay_ms(500);
+			
+			for(z=0;cmd_3[z]!='\0';z++)				//for sms sending command
+ 33e:	8c 91       	ld	r24, X
+ 340:	88 23       	and	r24, r24
+ 342:	a1 f7       	brne	.-24     	; 0x32c <gsm_msg_send+0x12c>
+			{
+				UDR = cmd_3[z];
+				_delay_ms(100);
+			}			
+			UDR = ('"');								///for " before number
+ 344:	82 e2       	ldi	r24, 0x22	; 34
+ 346:	8c b9       	out	0x0c, r24	; 12
+ 348:	88 ee       	ldi	r24, 0xE8	; 232
+ 34a:	93 e0       	ldi	r25, 0x03	; 3
+ 34c:	28 ec       	ldi	r18, 0xC8	; 200
+ 34e:	30 e0       	ldi	r19, 0x00	; 0
+ 350:	f9 01       	movw	r30, r18
+ 352:	31 97       	sbiw	r30, 0x01	; 1
+ 354:	f1 f7       	brne	.-4      	; 0x352 <gsm_msg_send+0x152>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 356:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 358:	d9 f7       	brne	.-10     	; 0x350 <gsm_msg_send+0x150>
+ 35a:	81 2f       	mov	r24, r17
+ 35c:	90 2f       	mov	r25, r16
+ 35e:	9c 01       	movw	r18, r24
+ 360:	d9 01       	movw	r26, r18
+ 362:	28 ec       	ldi	r18, 0xC8	; 200
+ 364:	30 e0       	ldi	r19, 0x00	; 0
+ 366:	09 c0       	rjmp	.+18     	; 0x37a <gsm_msg_send+0x17a>
+			_delay_ms(100);
+			
+			for(z=0;cmd_5[z]!='\0';z++)				//for number writing
+			{
+				UDR = cmd_5[z];
+ 368:	8c b9       	out	0x0c, r24	; 12
+ 36a:	88 ee       	ldi	r24, 0xE8	; 232
+ 36c:	93 e0       	ldi	r25, 0x03	; 3
+ 36e:	f9 01       	movw	r30, r18
+ 370:	31 97       	sbiw	r30, 0x01	; 1
+ 372:	f1 f7       	brne	.-4      	; 0x370 <gsm_msg_send+0x170>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 374:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 376:	d9 f7       	brne	.-10     	; 0x36e <gsm_msg_send+0x16e>
+ 378:	11 96       	adiw	r26, 0x01	; 1
+				_delay_ms(100);
+			}			
+			UDR = ('"');								///for " before number
+			_delay_ms(100);
+			
+			for(z=0;cmd_5[z]!='\0';z++)				//for number writing
+ 37a:	8c 91       	ld	r24, X
+ 37c:	88 23       	and	r24, r24
+ 37e:	a1 f7       	brne	.-24     	; 0x368 <gsm_msg_send+0x168>
+			{
+				UDR = cmd_5[z];
+				_delay_ms(100);
+			}			
+			UDR = ('"');								//for " after number
+ 380:	82 e2       	ldi	r24, 0x22	; 34
+ 382:	8c b9       	out	0x0c, r24	; 12
+ 384:	88 ee       	ldi	r24, 0xE8	; 232
+ 386:	93 e0       	ldi	r25, 0x03	; 3
+ 388:	28 ec       	ldi	r18, 0xC8	; 200
+ 38a:	30 e0       	ldi	r19, 0x00	; 0
+ 38c:	f9 01       	movw	r30, r18
+ 38e:	31 97       	sbiw	r30, 0x01	; 1
+ 390:	f1 f7       	brne	.-4      	; 0x38e <gsm_msg_send+0x18e>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 392:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 394:	d9 f7       	brne	.-10     	; 0x38c <gsm_msg_send+0x18c>
+			_delay_ms(100);			
+			UDR = ('\r');
+ 396:	8d e0       	ldi	r24, 0x0D	; 13
+ 398:	8c b9       	out	0x0c, r24	; 12
+ 39a:	88 e8       	ldi	r24, 0x88	; 136
+ 39c:	93 e1       	ldi	r25, 0x13	; 19
+ 39e:	28 ec       	ldi	r18, 0xC8	; 200
+ 3a0:	30 e0       	ldi	r19, 0x00	; 0
+ 3a2:	f9 01       	movw	r30, r18
+ 3a4:	31 97       	sbiw	r30, 0x01	; 1
+ 3a6:	f1 f7       	brne	.-4      	; 0x3a4 <gsm_msg_send+0x1a4>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 3a8:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 3aa:	d9 f7       	brne	.-10     	; 0x3a2 <gsm_msg_send+0x1a2>
+ 3ac:	8f 2d       	mov	r24, r15
+ 3ae:	9e 2d       	mov	r25, r14
+ 3b0:	9c 01       	movw	r18, r24
+ 3b2:	d9 01       	movw	r26, r18
+ 3b4:	28 ec       	ldi	r18, 0xC8	; 200
+ 3b6:	30 e0       	ldi	r19, 0x00	; 0
+ 3b8:	09 c0       	rjmp	.+18     	; 0x3cc <gsm_msg_send+0x1cc>
+			_delay_ms(500);
+			
+			for(z=0;cmd_4[z]!='\0';z++)				//for sms wrting
+			{
+				UDR = cmd_4[z];
+ 3ba:	8c b9       	out	0x0c, r24	; 12
+ 3bc:	88 ee       	ldi	r24, 0xE8	; 232
+ 3be:	93 e0       	ldi	r25, 0x03	; 3
+ 3c0:	f9 01       	movw	r30, r18
+ 3c2:	31 97       	sbiw	r30, 0x01	; 1
+ 3c4:	f1 f7       	brne	.-4      	; 0x3c2 <gsm_msg_send+0x1c2>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 3c6:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 3c8:	d9 f7       	brne	.-10     	; 0x3c0 <gsm_msg_send+0x1c0>
+ 3ca:	11 96       	adiw	r26, 0x01	; 1
+			UDR = ('"');								//for " after number
+			_delay_ms(100);			
+			UDR = ('\r');
+			_delay_ms(500);
+			
+			for(z=0;cmd_4[z]!='\0';z++)				//for sms wrting
+ 3cc:	8c 91       	ld	r24, X
+ 3ce:	88 23       	and	r24, r24
+ 3d0:	a1 f7       	brne	.-24     	; 0x3ba <gsm_msg_send+0x1ba>
+			{
+				UDR = cmd_4[z];
+				_delay_ms(100);
+			}			
+			UDR = (26);                 			  // ctrlZ-> to send the message
+ 3d2:	8a e1       	ldi	r24, 0x1A	; 26
+ 3d4:	8c b9       	out	0x0c, r24	; 12
+ 3d6:	88 e8       	ldi	r24, 0x88	; 136
+ 3d8:	93 e1       	ldi	r25, 0x13	; 19
+ 3da:	28 ec       	ldi	r18, 0xC8	; 200
+ 3dc:	30 e0       	ldi	r19, 0x00	; 0
+ 3de:	f9 01       	movw	r30, r18
+ 3e0:	31 97       	sbiw	r30, 0x01	; 1
+ 3e2:	f1 f7       	brne	.-4      	; 0x3e0 <gsm_msg_send+0x1e0>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 3e4:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 3e6:	d9 f7       	brne	.-10     	; 0x3de <gsm_msg_send+0x1de>
+			_delay_ms(500);
+			
+			LCD_clear();
+ 3e8:	0e 94 6a 00 	call	0xd4	; 0xd4 <LCD_clear>
+			string_location(1,0);
+ 3ec:	81 e0       	ldi	r24, 0x01	; 1
+ 3ee:	60 e0       	ldi	r22, 0x00	; 0
+ 3f0:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+			send_a_string("Done!");
+ 3f4:	8c e7       	ldi	r24, 0x7C	; 124
+ 3f6:	90 e0       	ldi	r25, 0x00	; 0
+ 3f8:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+			//_delay_ms(4000);
+			string_location(1,1);
+ 3fc:	81 e0       	ldi	r24, 0x01	; 1
+ 3fe:	61 e0       	ldi	r22, 0x01	; 1
+ 400:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+			send_a_string("Message Sent!");
+ 404:	82 e8       	ldi	r24, 0x82	; 130
+ 406:	90 e0       	ldi	r25, 0x00	; 0
+ 408:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+ 40c:	80 e1       	ldi	r24, 0x10	; 16
+ 40e:	97 e2       	ldi	r25, 0x27	; 39
+ 410:	28 ec       	ldi	r18, 0xC8	; 200
+ 412:	30 e0       	ldi	r19, 0x00	; 0
+ 414:	f9 01       	movw	r30, r18
+ 416:	31 97       	sbiw	r30, 0x01	; 1
+ 418:	f1 f7       	brne	.-4      	; 0x416 <gsm_msg_send+0x216>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 41a:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 41c:	d9 f7       	brne	.-10     	; 0x414 <gsm_msg_send+0x214>
+			_delay_ms(1000);
+			LCD_clear();
+ 41e:	0e 94 6a 00 	call	0xd4	; 0xd4 <LCD_clear>
+}   
+ 422:	66 96       	adiw	r28, 0x16	; 22
+ 424:	0f b6       	in	r0, 0x3f	; 63
+ 426:	f8 94       	cli
+ 428:	de bf       	out	0x3e, r29	; 62
+ 42a:	0f be       	out	0x3f, r0	; 63
+ 42c:	cd bf       	out	0x3d, r28	; 61
+ 42e:	cf 91       	pop	r28
+ 430:	df 91       	pop	r29
+ 432:	1f 91       	pop	r17
+ 434:	0f 91       	pop	r16
+ 436:	ff 90       	pop	r15
+ 438:	ef 90       	pop	r14
+ 43a:	08 95       	ret
+
+0000043c <convert_to_IST>:
+
+
+
+
+void convert_to_IST()
+{
+ 43c:	cf 93       	push	r28
+ 43e:	df 93       	push	r29
+	unsigned int UTC_hour, UTC_minute,IST_hour,IST_minute,tmp,temp;
+	UTC_hour = (*(time+0)-0x30)*10 + (*(time+1)-0x30);
+	UTC_minute = (*(time+2)-0x30)*10 + (*(time+3)-0x30);
+ 440:	60 91 6a 01 	lds	r22, 0x016A
+ 444:	30 91 6b 01 	lds	r19, 0x016B
+	IST_hour = UTC_hour+5;
+ 448:	80 91 69 01 	lds	r24, 0x0169
+ 44c:	48 2f       	mov	r20, r24
+ 44e:	50 e0       	ldi	r21, 0x00	; 0
+ 450:	40 51       	subi	r20, 0x10	; 16
+ 452:	52 40       	sbci	r21, 0x02	; 2
+ 454:	80 91 68 01 	lds	r24, 0x0168
+ 458:	2a e0       	ldi	r18, 0x0A	; 10
+ 45a:	82 9f       	mul	r24, r18
+ 45c:	c0 01       	movw	r24, r0
+ 45e:	11 24       	eor	r1, r1
+ 460:	48 0f       	add	r20, r24
+ 462:	59 1f       	adc	r21, r25
+ 464:	fa 01       	movw	r30, r20
+ 466:	35 96       	adiw	r30, 0x05	; 5
+	if(IST_hour>24) IST_hour-=24;
+ 468:	e9 31       	cpi	r30, 0x19	; 25
+ 46a:	f1 05       	cpc	r31, r1
+ 46c:	10 f0       	brcs	.+4      	; 0x472 <convert_to_IST+0x36>
+ 46e:	fa 01       	movw	r30, r20
+ 470:	73 97       	sbiw	r30, 0x13	; 19
+	IST_minute = UTC_minute+45;
+ 472:	23 2f       	mov	r18, r19
+ 474:	30 e0       	ldi	r19, 0x00	; 0
+ 476:	20 51       	subi	r18, 0x10	; 16
+ 478:	32 40       	sbci	r19, 0x02	; 2
+ 47a:	8a e0       	ldi	r24, 0x0A	; 10
+ 47c:	68 9f       	mul	r22, r24
+ 47e:	c0 01       	movw	r24, r0
+ 480:	11 24       	eor	r1, r1
+ 482:	28 0f       	add	r18, r24
+ 484:	39 1f       	adc	r19, r25
+ 486:	e9 01       	movw	r28, r18
+ 488:	ad 96       	adiw	r28, 0x2d	; 45
+	if(IST_minute>=60)
+ 48a:	cc 33       	cpi	r28, 0x3C	; 60
+ 48c:	d1 05       	cpc	r29, r1
+ 48e:	18 f0       	brcs	.+6      	; 0x496 <convert_to_IST+0x5a>
+	{
+		IST_minute-=60;
+ 490:	e9 01       	movw	r28, r18
+ 492:	2f 97       	sbiw	r28, 0x0f	; 15
+		IST_hour+=1;
+ 494:	31 96       	adiw	r30, 0x01	; 1
+	}
+	if(IST_hour>=10)//if(IST_hour>10)
+ 496:	ea 30       	cpi	r30, 0x0A	; 10
+ 498:	f1 05       	cpc	r31, r1
+ 49a:	88 f0       	brcs	.+34     	; 0x4be <convert_to_IST+0x82>
+	{
+		tmp=IST_hour%10;
+		*(IST_time+1) = tmp+0x30;
+ 49c:	cf 01       	movw	r24, r30
+ 49e:	6a e0       	ldi	r22, 0x0A	; 10
+ 4a0:	70 e0       	ldi	r23, 0x00	; 0
+ 4a2:	0e 94 4c 05 	call	0xa98	; 0xa98 <__udivmodhi4>
+ 4a6:	80 5d       	subi	r24, 0xD0	; 208
+ 4a8:	80 93 4e 01 	sts	0x014E, r24
+		temp = IST_hour/10;
+		*(IST_time+0) = temp+0x30;
+ 4ac:	cf 01       	movw	r24, r30
+ 4ae:	6a e0       	ldi	r22, 0x0A	; 10
+ 4b0:	70 e0       	ldi	r23, 0x00	; 0
+ 4b2:	0e 94 4c 05 	call	0xa98	; 0xa98 <__udivmodhi4>
+ 4b6:	60 5d       	subi	r22, 0xD0	; 208
+ 4b8:	60 93 4d 01 	sts	0x014D, r22
+ 4bc:	0b c0       	rjmp	.+22     	; 0x4d4 <convert_to_IST+0x98>
+	}
+	else
+	{
+		*(IST_time+0) = 0x30;
+ 4be:	80 e3       	ldi	r24, 0x30	; 48
+ 4c0:	80 93 4d 01 	sts	0x014D, r24
+		tmp=IST_hour%10;
+		*(IST_time+1) = tmp+0x30;
+ 4c4:	cf 01       	movw	r24, r30
+ 4c6:	6a e0       	ldi	r22, 0x0A	; 10
+ 4c8:	70 e0       	ldi	r23, 0x00	; 0
+ 4ca:	0e 94 4c 05 	call	0xa98	; 0xa98 <__udivmodhi4>
+ 4ce:	80 5d       	subi	r24, 0xD0	; 208
+ 4d0:	80 93 4e 01 	sts	0x014E, r24
+	}
+	if(IST_minute>=10)//if(IST_minute>10)
+ 4d4:	ca 30       	cpi	r28, 0x0A	; 10
+ 4d6:	d1 05       	cpc	r29, r1
+ 4d8:	88 f0       	brcs	.+34     	; 0x4fc <convert_to_IST+0xc0>
+	{
+		tmp=IST_minute%10;
+		*(IST_time+3) = tmp+0x30;
+ 4da:	ce 01       	movw	r24, r28
+ 4dc:	6a e0       	ldi	r22, 0x0A	; 10
+ 4de:	70 e0       	ldi	r23, 0x00	; 0
+ 4e0:	0e 94 4c 05 	call	0xa98	; 0xa98 <__udivmodhi4>
+ 4e4:	80 5d       	subi	r24, 0xD0	; 208
+ 4e6:	80 93 50 01 	sts	0x0150, r24
+		temp = IST_minute/10;
+		*(IST_time+2) = temp+0x30;
+ 4ea:	ce 01       	movw	r24, r28
+ 4ec:	6a e0       	ldi	r22, 0x0A	; 10
+ 4ee:	70 e0       	ldi	r23, 0x00	; 0
+ 4f0:	0e 94 4c 05 	call	0xa98	; 0xa98 <__udivmodhi4>
+ 4f4:	60 5d       	subi	r22, 0xD0	; 208
+ 4f6:	60 93 4f 01 	sts	0x014F, r22
+ 4fa:	0b c0       	rjmp	.+22     	; 0x512 <convert_to_IST+0xd6>
+	}
+	else
+	{
+		*(IST_time+2) = 0x30;
+ 4fc:	80 e3       	ldi	r24, 0x30	; 48
+ 4fe:	80 93 4f 01 	sts	0x014F, r24
+		tmp=IST_minute%10;
+		*(IST_time+3) = tmp+0x30;
+ 502:	ce 01       	movw	r24, r28
+ 504:	6a e0       	ldi	r22, 0x0A	; 10
+ 506:	70 e0       	ldi	r23, 0x00	; 0
+ 508:	0e 94 4c 05 	call	0xa98	; 0xa98 <__udivmodhi4>
+ 50c:	80 5d       	subi	r24, 0xD0	; 208
+ 50e:	80 93 50 01 	sts	0x0150, r24
+	}
+}
+ 512:	df 91       	pop	r29
+ 514:	cf 91       	pop	r28
+ 516:	08 95       	ret
+
+00000518 <display_time>:
+
+void display_time()
+{
+	
+	
+	LCD_clear();
+ 518:	0e 94 6a 00 	call	0xd4	; 0xd4 <LCD_clear>
+	string_location(1,0);
+ 51c:	81 e0       	ldi	r24, 0x01	; 1
+ 51e:	60 e0       	ldi	r22, 0x00	; 0
+ 520:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+	
+	
+	
+	
+	//send_a_command(0x90);
+	send_a_string("NST");
+ 524:	86 ea       	ldi	r24, 0xA6	; 166
+ 526:	90 e0       	ldi	r25, 0x00	; 0
+ 528:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+	convert_to_IST();
+ 52c:	0e 94 1e 02 	call	0x43c	; 0x43c <convert_to_IST>
+	send_a_character(*(IST_time+0));
+ 530:	80 91 4d 01 	lds	r24, 0x014D
+ 534:	0e 94 96 00 	call	0x12c	; 0x12c <send_a_character>
+	send_a_character(*(IST_time+1));
+ 538:	80 91 4e 01 	lds	r24, 0x014E
+ 53c:	0e 94 96 00 	call	0x12c	; 0x12c <send_a_character>
+	send_a_character(':');
+ 540:	8a e3       	ldi	r24, 0x3A	; 58
+ 542:	0e 94 96 00 	call	0x12c	; 0x12c <send_a_character>
+	send_a_character(*(IST_time+2));
+ 546:	80 91 4f 01 	lds	r24, 0x014F
+ 54a:	0e 94 96 00 	call	0x12c	; 0x12c <send_a_character>
+	send_a_character(*(IST_time+3));
+ 54e:	80 91 50 01 	lds	r24, 0x0150
+ 552:	0e 94 96 00 	call	0x12c	; 0x12c <send_a_character>
+	//send_a_character(*(IST_time+4));
+	//send_a_character(*(IST_time+5));
+	
+	
+	
+}
+ 556:	08 95       	ret
+
+00000558 <display_latitude>:
+
+
+
+
+void display_latitude()
+{
+ 558:	aa e7       	ldi	r26, 0x7A	; 122
+ 55a:	b1 e0       	ldi	r27, 0x01	; 1
+ 55c:	20 e0       	ldi	r18, 0x00	; 0
+ 55e:	30 e0       	ldi	r19, 0x00	; 0
+			lati_final[i]=0x2B;
+			i++;
+			lati_final[i]=*(lati_value+lati_count);
+		}
+		else if(i==5){
+			lati_final[i]=0x2E;
+ 560:	4e e2       	ldi	r20, 0x2E	; 46
+	int i=0;
+	int lati_count=0;
+	for(i=0;i<10;i++){
+		
+		if(i==2){
+			lati_final[i]=0x2B;
+ 562:	9b e2       	ldi	r25, 0x2B	; 43
+{
+	int i=0;
+	int lati_count=0;
+	for(i=0;i<10;i++){
+		
+		if(i==2){
+ 564:	22 30       	cpi	r18, 0x02	; 2
+ 566:	31 05       	cpc	r19, r1
+ 568:	41 f4       	brne	.+16     	; 0x57a <display_latitude+0x22>
+			lati_final[i]=0x2B;
+ 56a:	90 93 70 01 	sts	0x0170, r25
+			i++;
+			lati_final[i]=*(lati_value+lati_count);
+ 56e:	8c 91       	ld	r24, X
+ 570:	80 93 71 01 	sts	0x0171, r24
+ 574:	23 e0       	ldi	r18, 0x03	; 3
+ 576:	30 e0       	ldi	r19, 0x00	; 0
+ 578:	0b c0       	rjmp	.+22     	; 0x590 <display_latitude+0x38>
+		}
+		else if(i==5){
+ 57a:	25 30       	cpi	r18, 0x05	; 5
+ 57c:	31 05       	cpc	r19, r1
+ 57e:	19 f4       	brne	.+6      	; 0x586 <display_latitude+0x2e>
+			lati_final[i]=0x2E;
+ 580:	40 93 73 01 	sts	0x0173, r20
+ 584:	05 c0       	rjmp	.+10     	; 0x590 <display_latitude+0x38>
+		}
+		else {
+			lati_final[i]=*(lati_value+lati_count);
+ 586:	f9 01       	movw	r30, r18
+ 588:	e2 59       	subi	r30, 0x92	; 146
+ 58a:	fe 4f       	sbci	r31, 0xFE	; 254
+ 58c:	8c 91       	ld	r24, X
+ 58e:	80 83       	st	Z, r24
+
+void display_latitude()
+{
+	int i=0;
+	int lati_count=0;
+	for(i=0;i<10;i++){
+ 590:	2f 5f       	subi	r18, 0xFF	; 255
+ 592:	3f 4f       	sbci	r19, 0xFF	; 255
+ 594:	11 96       	adiw	r26, 0x01	; 1
+ 596:	2a 30       	cpi	r18, 0x0A	; 10
+ 598:	31 05       	cpc	r19, r1
+ 59a:	24 f3       	brlt	.-56     	; 0x564 <display_latitude+0xc>
+			lati_final[i]=*(lati_value+lati_count);
+		}
+		lati_count++;
+			
+	}
+	lati_final[i]=lati_dir;
+ 59c:	f9 01       	movw	r30, r18
+ 59e:	e2 59       	subi	r30, 0x92	; 146
+ 5a0:	fe 4f       	sbci	r31, 0xFE	; 254
+ 5a2:	80 91 4c 01 	lds	r24, 0x014C
+ 5a6:	80 83       	st	Z, r24
+	i++;
+	lati_final[i]=0;
+ 5a8:	11 82       	std	Z+1, r1	; 0x01
+	
+	LCD_clear();
+ 5aa:	0e 94 6a 00 	call	0xd4	; 0xd4 <LCD_clear>
+	string_location(1,0);
+ 5ae:	81 e0       	ldi	r24, 0x01	; 1
+ 5b0:	60 e0       	ldi	r22, 0x00	; 0
+ 5b2:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+	
+	send_a_string(lati_final);
+ 5b6:	8e e6       	ldi	r24, 0x6E	; 110
+ 5b8:	91 e0       	ldi	r25, 0x01	; 1
+ 5ba:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+	send_a_character(0x22);
+	send_a_character(0x20);
+	send_a_character(lati_dir);
+	
+	*/
+}
+ 5be:	08 95       	ret
+
+000005c0 <display_longitude>:
+void display_longitude()
+{
+ 5c0:	a1 e5       	ldi	r26, 0x51	; 81
+ 5c2:	b1 e0       	ldi	r27, 0x01	; 1
+ 5c4:	20 e0       	ldi	r18, 0x00	; 0
+ 5c6:	30 e0       	ldi	r19, 0x00	; 0
+			longi_final[i]=0x2B;
+			i++;
+			longi_final[i]=*(longi_value+longi_count);
+		}
+		else if(i==6){
+			longi_final[i]=0x2E;
+ 5c8:	4e e2       	ldi	r20, 0x2E	; 46
+	int i=0;
+	int longi_count=0;
+	for(i=0;i<11;i++){
+		
+		if(i==3){
+			longi_final[i]=0x2B;
+ 5ca:	9b e2       	ldi	r25, 0x2B	; 43
+{
+	int i=0;
+	int longi_count=0;
+	for(i=0;i<11;i++){
+		
+		if(i==3){
+ 5cc:	23 30       	cpi	r18, 0x03	; 3
+ 5ce:	31 05       	cpc	r19, r1
+ 5d0:	41 f4       	brne	.+16     	; 0x5e2 <display_longitude+0x22>
+			longi_final[i]=0x2B;
+ 5d2:	90 93 5f 01 	sts	0x015F, r25
+			i++;
+			longi_final[i]=*(longi_value+longi_count);
+ 5d6:	8c 91       	ld	r24, X
+ 5d8:	80 93 60 01 	sts	0x0160, r24
+ 5dc:	24 e0       	ldi	r18, 0x04	; 4
+ 5de:	30 e0       	ldi	r19, 0x00	; 0
+ 5e0:	0b c0       	rjmp	.+22     	; 0x5f8 <display_longitude+0x38>
+		}
+		else if(i==6){
+ 5e2:	26 30       	cpi	r18, 0x06	; 6
+ 5e4:	31 05       	cpc	r19, r1
+ 5e6:	19 f4       	brne	.+6      	; 0x5ee <display_longitude+0x2e>
+			longi_final[i]=0x2E;
+ 5e8:	40 93 62 01 	sts	0x0162, r20
+ 5ec:	05 c0       	rjmp	.+10     	; 0x5f8 <display_longitude+0x38>
+		}
+		else {
+			longi_final[i]=*(longi_value+longi_count);
+ 5ee:	f9 01       	movw	r30, r18
+ 5f0:	e4 5a       	subi	r30, 0xA4	; 164
+ 5f2:	fe 4f       	sbci	r31, 0xFE	; 254
+ 5f4:	8c 91       	ld	r24, X
+ 5f6:	80 83       	st	Z, r24
+}
+void display_longitude()
+{
+	int i=0;
+	int longi_count=0;
+	for(i=0;i<11;i++){
+ 5f8:	2f 5f       	subi	r18, 0xFF	; 255
+ 5fa:	3f 4f       	sbci	r19, 0xFF	; 255
+ 5fc:	11 96       	adiw	r26, 0x01	; 1
+ 5fe:	2b 30       	cpi	r18, 0x0B	; 11
+ 600:	31 05       	cpc	r19, r1
+ 602:	24 f3       	brlt	.-56     	; 0x5cc <display_longitude+0xc>
+			longi_final[i]=*(longi_value+longi_count);
+		}
+		longi_count++;
+			
+	}
+	longi_final[i]=longi_dir;
+ 604:	f9 01       	movw	r30, r18
+ 606:	e4 5a       	subi	r30, 0xA4	; 164
+ 608:	fe 4f       	sbci	r31, 0xFE	; 254
+ 60a:	80 91 4b 01 	lds	r24, 0x014B
+ 60e:	80 83       	st	Z, r24
+	i++;
+	longi_final[i]=0;
+ 610:	11 82       	std	Z+1, r1	; 0x01
+	
+	string_location(1,1);
+ 612:	81 e0       	ldi	r24, 0x01	; 1
+ 614:	61 e0       	ldi	r22, 0x01	; 1
+ 616:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+	
+	send_a_string(longi_final);
+ 61a:	8c e5       	ldi	r24, 0x5C	; 92
+ 61c:	91 e0       	ldi	r25, 0x01	; 1
+ 61e:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+	send_a_character(0x22);
+	send_a_character(0x20);
+	send_a_character(longi_dir);
+
+	*/
+}
+ 622:	08 95       	ret
+
+00000624 <gps_get>:
+void display_latitude(void);
+void display_longitude(void);
+
+
+void gps_get()
+{
+ 624:	7f 92       	push	r7
+ 626:	8f 92       	push	r8
+ 628:	9f 92       	push	r9
+ 62a:	af 92       	push	r10
+ 62c:	bf 92       	push	r11
+ 62e:	cf 92       	push	r12
+ 630:	df 92       	push	r13
+ 632:	ef 92       	push	r14
+ 634:	ff 92       	push	r15
+ 636:	0f 93       	push	r16
+ 638:	1f 93       	push	r17
+ 63a:	df 93       	push	r29
+ 63c:	cf 93       	push	r28
+ 63e:	cd b7       	in	r28, 0x3d	; 61
+ 640:	de b7       	in	r29, 0x3e	; 62
+ 642:	c4 56       	subi	r28, 0x64	; 100
+ 644:	d0 40       	sbci	r29, 0x00	; 0
+ 646:	0f b6       	in	r0, 0x3f	; 63
+ 648:	f8 94       	cli
+ 64a:	de bf       	out	0x3e, r29	; 62
+ 64c:	0f be       	out	0x3f, r0	; 63
+ 64e:	cd bf       	out	0x3d, r28	; 61
+	LCD_initial(); //initialization of LCD
+ 650:	0e 94 79 00 	call	0xf2	; 0xf2 <LCD_initial>
+	string_location(1,0);
+ 654:	81 e0       	ldi	r24, 0x01	; 1
+ 656:	60 e0       	ldi	r22, 0x00	; 0
+ 658:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+	send_a_string("You're Drunk!");
+ 65c:	8a ea       	ldi	r24, 0xAA	; 170
+ 65e:	90 e0       	ldi	r25, 0x00	; 0
+ 660:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+	string_location(1,1);
+ 664:	81 e0       	ldi	r24, 0x01	; 1
+ 666:	61 e0       	ldi	r22, 0x01	; 1
+ 668:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+	send_a_string("DO NOT DRIVE!");
+ 66c:	88 eb       	ldi	r24, 0xB8	; 184
+ 66e:	90 e0       	ldi	r25, 0x00	; 0
+ 670:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+ 674:	80 e1       	ldi	r24, 0x10	; 16
+ 676:	97 e2       	ldi	r25, 0x27	; 39
+ 678:	28 ec       	ldi	r18, 0xC8	; 200
+ 67a:	30 e0       	ldi	r19, 0x00	; 0
+ 67c:	f9 01       	movw	r30, r18
+ 67e:	31 97       	sbiw	r30, 0x01	; 1
+ 680:	f1 f7       	brne	.-4      	; 0x67e <gps_get+0x5a>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 682:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 684:	d9 f7       	brne	.-10     	; 0x67c <gps_get+0x58>
+	_delay_ms(1000);
+	USART_Init(12); // initialization of USART
+ 686:	6c e0       	ldi	r22, 0x0C	; 12
+ 688:	70 e0       	ldi	r23, 0x00	; 0
+ 68a:	80 e0       	ldi	r24, 0x00	; 0
+ 68c:	90 e0       	ldi	r25, 0x00	; 0
+ 68e:	0e 94 b9 00 	call	0x172	; 0x172 <USART_Init>
+	string_location(1,0);
+ 692:	81 e0       	ldi	r24, 0x01	; 1
+ 694:	60 e0       	ldi	r22, 0x00	; 0
+ 696:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+	
+	LCD_clear();
+ 69a:	0e 94 6a 00 	call	0xd4	; 0xd4 <LCD_clear>
+ 69e:	a0 e0       	ldi	r26, 0x00	; 0
+ 6a0:	b0 e0       	ldi	r27, 0x00	; 0
+	
+	unsigned char line[100];
+	int  i = 0;
+	
+	while(!gps_value){
+ 6a2:	7e 01       	movw	r14, r28
+ 6a4:	08 94       	sec
+ 6a6:	e1 1c       	adc	r14, r1
+ 6a8:	f1 1c       	adc	r15, r1
+												i++;
+												*(longi_value+t) = *(line+i);
+											}
+											
+											i++;
+											longi_dir=*(line+i);									
+ 6aa:	f2 e0       	ldi	r31, 0x02	; 2
+ 6ac:	8f 2e       	mov	r8, r31
+ 6ae:	91 2c       	mov	r9, r1
+ 6b0:	8c 0e       	add	r8, r28
+ 6b2:	9d 1e       	adc	r9, r29
+ 6b4:	e8 ec       	ldi	r30, 0xC8	; 200
+ 6b6:	ae 2e       	mov	r10, r30
+ 6b8:	b1 2c       	mov	r11, r1
+										i++;
+										if(*(line+i)==',')
+										{
+											i++;
+											*(time+0) = *(line+i);
+											for(t=1;*(line+i)!=',';t++)
+ 6ba:	71 e0       	ldi	r23, 0x01	; 1
+ 6bc:	c7 2e       	mov	r12, r23
+ 6be:	d1 2c       	mov	r13, r1
+											//display_speed();
+											//display_corse();
+											//_delay_ms(2000);
+											
+											//get_latitude();
+											gps_value=true;
+ 6c0:	77 24       	eor	r7, r7
+ 6c2:	73 94       	inc	r7
+ 6c4:	0f c1       	rjmp	.+542    	; 0x8e4 <__stack+0x85>
+	LCD_clear();
+	
+	unsigned char line[100];
+	int  i = 0;
+	
+	while(!gps_value){
+ 6c6:	f7 01       	movw	r30, r14
+ 6c8:	ea 0f       	add	r30, r26
+ 6ca:	fb 1f       	adc	r31, r27
+	while (!(UCSRA & (1<<UDRE)));					/* Wait until data transmit and buffer get empty */
+}
+
+unsigned int usart_getch()
+{
+	while((UCSRA & (1<<RXC)) == 0);
+ 6cc:	5f 9b       	sbis	0x0b, 7	; 11
+ 6ce:	fe cf       	rjmp	.-4      	; 0x6cc <gps_get+0xa8>
+	return UDR;
+ 6d0:	8c b1       	in	r24, 0x0c	; 12
+	
+		while(1)
+		{
+			
+			line[i] = usart_getch();
+ 6d2:	81 93       	st	Z+, r24
+			if (line[i] == '\n') break;
+ 6d4:	8a 30       	cpi	r24, 0x0A	; 10
+ 6d6:	11 f0       	breq	.+4      	; 0x6dc <gps_get+0xb8>
+			i++;
+ 6d8:	11 96       	adiw	r26, 0x01	; 1
+ 6da:	f8 cf       	rjmp	.-16     	; 0x6cc <gps_get+0xa8>
+		
+			
+			
+		}
+		
+		line[i] = 0;
+ 6dc:	ae 0d       	add	r26, r14
+ 6de:	bf 1d       	adc	r27, r15
+ 6e0:	1c 92       	st	X, r1
+ 6e2:	a0 e0       	ldi	r26, 0x00	; 0
+ 6e4:	b0 e0       	ldi	r27, 0x00	; 0
+ 6e6:	f9 c0       	rjmp	.+498    	; 0x8da <__stack+0x7b>
+
+		i=0;
+		
+		while(i>=0){
+		
+			if(*(line+i)=='$')
+ 6e8:	80 81       	ld	r24, Z
+ 6ea:	84 32       	cpi	r24, 0x24	; 36
+ 6ec:	19 f0       	breq	.+6      	; 0x6f4 <gps_get+0xd0>
+ 6ee:	af ef       	ldi	r26, 0xFF	; 255
+ 6f0:	bf ef       	ldi	r27, 0xFF	; 255
+ 6f2:	f8 c0       	rjmp	.+496    	; 0x8e4 <__stack+0x85>
+			{
+				i++;
+ 6f4:	11 96       	adiw	r26, 0x01	; 1
+				if(*(line+i)=='G')
+ 6f6:	81 81       	ldd	r24, Z+1	; 0x01
+ 6f8:	31 96       	adiw	r30, 0x01	; 1
+ 6fa:	87 34       	cpi	r24, 0x47	; 71
+ 6fc:	09 f0       	breq	.+2      	; 0x700 <gps_get+0xdc>
+ 6fe:	f0 c0       	rjmp	.+480    	; 0x8e0 <__stack+0x81>
+				{	
+					i++;
+ 700:	11 96       	adiw	r26, 0x01	; 1
+					if(*(line+i)=='P')
+ 702:	f7 01       	movw	r30, r14
+ 704:	ea 0f       	add	r30, r26
+ 706:	fb 1f       	adc	r31, r27
+ 708:	80 81       	ld	r24, Z
+ 70a:	80 35       	cpi	r24, 0x50	; 80
+ 70c:	09 f0       	breq	.+2      	; 0x710 <gps_get+0xec>
+ 70e:	e5 c0       	rjmp	.+458    	; 0x8da <__stack+0x7b>
+					{
+						i++;
+ 710:	11 96       	adiw	r26, 0x01	; 1
+						if(*(line+i)=='R')
+ 712:	f7 01       	movw	r30, r14
+ 714:	ea 0f       	add	r30, r26
+ 716:	fb 1f       	adc	r31, r27
+ 718:	80 81       	ld	r24, Z
+ 71a:	82 35       	cpi	r24, 0x52	; 82
+ 71c:	09 f0       	breq	.+2      	; 0x720 <gps_get+0xfc>
+ 71e:	dd c0       	rjmp	.+442    	; 0x8da <__stack+0x7b>
+						{
+							i++;
+ 720:	11 96       	adiw	r26, 0x01	; 1
+							if(*(line+i)=='M')
+ 722:	f7 01       	movw	r30, r14
+ 724:	ea 0f       	add	r30, r26
+ 726:	fb 1f       	adc	r31, r27
+ 728:	80 81       	ld	r24, Z
+ 72a:	8d 34       	cpi	r24, 0x4D	; 77
+ 72c:	09 f0       	breq	.+2      	; 0x730 <gps_get+0x10c>
+ 72e:	d5 c0       	rjmp	.+426    	; 0x8da <__stack+0x7b>
+							{
+								i++;	
+ 730:	11 96       	adiw	r26, 0x01	; 1
+								if(*(line+i)=='C')
+ 732:	f7 01       	movw	r30, r14
+ 734:	ea 0f       	add	r30, r26
+ 736:	fb 1f       	adc	r31, r27
+ 738:	80 81       	ld	r24, Z
+ 73a:	83 34       	cpi	r24, 0x43	; 67
+ 73c:	09 f0       	breq	.+2      	; 0x740 <gps_get+0x11c>
+ 73e:	cd c0       	rjmp	.+410    	; 0x8da <__stack+0x7b>
+								{
+									//gps_value=true;
+									//if(gps_value)
+									
+									//{
+										i++;
+ 740:	11 96       	adiw	r26, 0x01	; 1
+										if(*(line+i)==',')
+ 742:	97 01       	movw	r18, r14
+ 744:	2a 0f       	add	r18, r26
+ 746:	3b 1f       	adc	r19, r27
+ 748:	f9 01       	movw	r30, r18
+ 74a:	80 81       	ld	r24, Z
+ 74c:	8c 32       	cpi	r24, 0x2C	; 44
+ 74e:	09 f0       	breq	.+2      	; 0x752 <gps_get+0x12e>
+ 750:	c4 c0       	rjmp	.+392    	; 0x8da <__stack+0x7b>
+										{
+											i++;
+ 752:	bd 01       	movw	r22, r26
+ 754:	6f 5f       	subi	r22, 0xFF	; 255
+ 756:	7f 4f       	sbci	r23, 0xFF	; 255
+											*(time+0) = *(line+i);
+ 758:	f7 01       	movw	r30, r14
+ 75a:	e6 0f       	add	r30, r22
+ 75c:	f7 1f       	adc	r31, r23
+ 75e:	80 81       	ld	r24, Z
+ 760:	80 93 68 01 	sts	0x0168, r24
+											for(t=1;*(line+i)!=',';t++)
+ 764:	d0 92 4a 01 	sts	0x014A, r13
+ 768:	c0 92 49 01 	sts	0x0149, r12
+ 76c:	d9 01       	movw	r26, r18
+ 76e:	11 c0       	rjmp	.+34     	; 0x792 <gps_get+0x16e>
+											{
+												i++;
+ 770:	b9 01       	movw	r22, r18
+												*(time+t) = *(line+i);
+ 772:	80 91 49 01 	lds	r24, 0x0149
+ 776:	90 91 4a 01 	lds	r25, 0x014A
+ 77a:	fc 01       	movw	r30, r24
+ 77c:	e8 59       	subi	r30, 0x98	; 152
+ 77e:	fe 4f       	sbci	r31, 0xFE	; 254
+ 780:	11 96       	adiw	r26, 0x01	; 1
+ 782:	2c 91       	ld	r18, X
+ 784:	11 97       	sbiw	r26, 0x01	; 1
+ 786:	20 83       	st	Z, r18
+										i++;
+										if(*(line+i)==',')
+										{
+											i++;
+											*(time+0) = *(line+i);
+											for(t=1;*(line+i)!=',';t++)
+ 788:	01 96       	adiw	r24, 0x01	; 1
+ 78a:	90 93 4a 01 	sts	0x014A, r25
+ 78e:	80 93 49 01 	sts	0x0149, r24
+ 792:	11 96       	adiw	r26, 0x01	; 1
+ 794:	8c 91       	ld	r24, X
+ 796:	11 97       	sbiw	r26, 0x01	; 1
+ 798:	11 96       	adiw	r26, 0x01	; 1
+ 79a:	9b 01       	movw	r18, r22
+ 79c:	2f 5f       	subi	r18, 0xFF	; 255
+ 79e:	3f 4f       	sbci	r19, 0xFF	; 255
+ 7a0:	8c 32       	cpi	r24, 0x2C	; 44
+ 7a2:	31 f7       	brne	.-52     	; 0x770 <gps_get+0x14c>
+											{
+												i++;
+												*(time+t) = *(line+i);
+											}
+											
+											i++;
+ 7a4:	a9 01       	movw	r20, r18
+ 7a6:	f7 01       	movw	r30, r14
+ 7a8:	e6 0f       	add	r30, r22
+ 7aa:	f7 1f       	adc	r31, r23
+ 7ac:	01 c0       	rjmp	.+2      	; 0x7b0 <gps_get+0x18c>
+											
+											while(*(line+i)!=',')				// wait upto next ","
+											{
+												i++;
+ 7ae:	a9 01       	movw	r20, r18
+												*(time+t) = *(line+i);
+											}
+											
+											i++;
+											
+											while(*(line+i)!=',')				// wait upto next ","
+ 7b0:	81 81       	ldd	r24, Z+1	; 0x01
+ 7b2:	31 96       	adiw	r30, 0x01	; 1
+ 7b4:	9a 01       	movw	r18, r20
+ 7b6:	2f 5f       	subi	r18, 0xFF	; 255
+ 7b8:	3f 4f       	sbci	r19, 0xFF	; 255
+ 7ba:	8c 32       	cpi	r24, 0x2C	; 44
+ 7bc:	c1 f7       	brne	.-16     	; 0x7ae <gps_get+0x18a>
+											{
+												i++;
+											}
+											i++;
+ 7be:	89 01       	movw	r16, r18
+											
+											*(lati_value+0) = *(line+i);
+ 7c0:	f7 01       	movw	r30, r14
+ 7c2:	e2 0f       	add	r30, r18
+ 7c4:	f3 1f       	adc	r31, r19
+ 7c6:	80 81       	ld	r24, Z
+ 7c8:	80 93 7a 01 	sts	0x017A, r24
+											for(t=1;*(line+i)!=',';t++)
+ 7cc:	d0 92 4a 01 	sts	0x014A, r13
+ 7d0:	c0 92 49 01 	sts	0x0149, r12
+ 7d4:	d7 01       	movw	r26, r14
+ 7d6:	a4 0f       	add	r26, r20
+ 7d8:	b5 1f       	adc	r27, r21
+ 7da:	11 c0       	rjmp	.+34     	; 0x7fe <gps_get+0x1da>
+											{
+												i++;
+ 7dc:	89 01       	movw	r16, r18
+												*(lati_value+t) = *(line+i);
+ 7de:	80 91 49 01 	lds	r24, 0x0149
+ 7e2:	90 91 4a 01 	lds	r25, 0x014A
+ 7e6:	fc 01       	movw	r30, r24
+ 7e8:	e6 58       	subi	r30, 0x86	; 134
+ 7ea:	fe 4f       	sbci	r31, 0xFE	; 254
+ 7ec:	11 96       	adiw	r26, 0x01	; 1
+ 7ee:	2c 91       	ld	r18, X
+ 7f0:	11 97       	sbiw	r26, 0x01	; 1
+ 7f2:	20 83       	st	Z, r18
+												i++;
+											}
+											i++;
+											
+											*(lati_value+0) = *(line+i);
+											for(t=1;*(line+i)!=',';t++)
+ 7f4:	01 96       	adiw	r24, 0x01	; 1
+ 7f6:	90 93 4a 01 	sts	0x014A, r25
+ 7fa:	80 93 49 01 	sts	0x0149, r24
+ 7fe:	11 96       	adiw	r26, 0x01	; 1
+ 800:	8c 91       	ld	r24, X
+ 802:	11 97       	sbiw	r26, 0x01	; 1
+ 804:	11 96       	adiw	r26, 0x01	; 1
+ 806:	98 01       	movw	r18, r16
+ 808:	2f 5f       	subi	r18, 0xFF	; 255
+ 80a:	3f 4f       	sbci	r19, 0xFF	; 255
+ 80c:	8c 32       	cpi	r24, 0x2C	; 44
+ 80e:	31 f7       	brne	.-52     	; 0x7dc <gps_get+0x1b8>
+												i++;
+												*(lati_value+t) = *(line+i);
+											}
+											
+											i++;
+											lati_dir=*(line+i);									
+ 810:	f7 01       	movw	r30, r14
+ 812:	e2 0f       	add	r30, r18
+ 814:	f3 1f       	adc	r31, r19
+ 816:	80 81       	ld	r24, Z
+ 818:	80 93 4c 01 	sts	0x014C, r24
+											
+											i++;
+ 81c:	b9 01       	movw	r22, r18
+ 81e:	6f 5f       	subi	r22, 0xFF	; 255
+ 820:	7f 4f       	sbci	r23, 0xFF	; 255
+ 822:	f7 01       	movw	r30, r14
+ 824:	e0 0f       	add	r30, r16
+ 826:	f1 1f       	adc	r31, r17
+ 828:	01 c0       	rjmp	.+2      	; 0x82c <gps_get+0x208>
+											
+											while(*(line+i)!=',')				// wait upto next ","
+											{
+												i++;
+ 82a:	b9 01       	movw	r22, r18
+											i++;
+											lati_dir=*(line+i);									
+											
+											i++;
+											
+											while(*(line+i)!=',')				// wait upto next ","
+ 82c:	82 81       	ldd	r24, Z+2	; 0x02
+ 82e:	31 96       	adiw	r30, 0x01	; 1
+ 830:	9b 01       	movw	r18, r22
+ 832:	2f 5f       	subi	r18, 0xFF	; 255
+ 834:	3f 4f       	sbci	r19, 0xFF	; 255
+ 836:	8c 32       	cpi	r24, 0x2C	; 44
+ 838:	c1 f7       	brne	.-16     	; 0x82a <gps_get+0x206>
+											{
+												i++;
+											}
+											i++;
+ 83a:	a9 01       	movw	r20, r18
+											
+											*(longi_value+0) = *(line+i);
+ 83c:	f7 01       	movw	r30, r14
+ 83e:	e2 0f       	add	r30, r18
+ 840:	f3 1f       	adc	r31, r19
+ 842:	80 81       	ld	r24, Z
+ 844:	80 93 51 01 	sts	0x0151, r24
+											for(t=1;*(line+i)!=',';t++)
+ 848:	d0 92 4a 01 	sts	0x014A, r13
+ 84c:	c0 92 49 01 	sts	0x0149, r12
+ 850:	d7 01       	movw	r26, r14
+ 852:	a6 0f       	add	r26, r22
+ 854:	b7 1f       	adc	r27, r23
+ 856:	12 c0       	rjmp	.+36     	; 0x87c <__stack+0x1d>
+											{
+												i++;
+ 858:	4f 5f       	subi	r20, 0xFF	; 255
+ 85a:	5f 4f       	sbci	r21, 0xFF	; 255
+												*(longi_value+t) = *(line+i);
+ 85c:	80 91 49 01 	lds	r24, 0x0149
+ 860:	90 91 4a 01 	lds	r25, 0x014A
+ 864:	fc 01       	movw	r30, r24
+ 866:	ef 5a       	subi	r30, 0xAF	; 175
+ 868:	fe 4f       	sbci	r31, 0xFE	; 254
+ 86a:	11 96       	adiw	r26, 0x01	; 1
+ 86c:	2c 91       	ld	r18, X
+ 86e:	11 97       	sbiw	r26, 0x01	; 1
+ 870:	20 83       	st	Z, r18
+												i++;
+											}
+											i++;
+											
+											*(longi_value+0) = *(line+i);
+											for(t=1;*(line+i)!=',';t++)
+ 872:	01 96       	adiw	r24, 0x01	; 1
+ 874:	90 93 4a 01 	sts	0x014A, r25
+ 878:	80 93 49 01 	sts	0x0149, r24
+ 87c:	11 96       	adiw	r26, 0x01	; 1
+ 87e:	8c 91       	ld	r24, X
+ 880:	11 97       	sbiw	r26, 0x01	; 1
+ 882:	11 96       	adiw	r26, 0x01	; 1
+ 884:	8c 32       	cpi	r24, 0x2C	; 44
+ 886:	41 f7       	brne	.-48     	; 0x858 <gps_get+0x234>
+												i++;
+												*(longi_value+t) = *(line+i);
+											}
+											
+											i++;
+											longi_dir=*(line+i);									
+ 888:	48 0d       	add	r20, r8
+ 88a:	59 1d       	adc	r21, r9
+ 88c:	fa 01       	movw	r30, r20
+ 88e:	80 81       	ld	r24, Z
+ 890:	80 93 4b 01 	sts	0x014B, r24
+												value = date[t];
+											}
+											*/
+											
+											
+											LCD_clear();
+ 894:	0e 94 6a 00 	call	0xd4	; 0xd4 <LCD_clear>
+ 898:	88 ee       	ldi	r24, 0xE8	; 232
+ 89a:	93 e0       	ldi	r25, 0x03	; 3
+ 89c:	f5 01       	movw	r30, r10
+ 89e:	31 97       	sbiw	r30, 0x01	; 1
+ 8a0:	f1 f7       	brne	.-4      	; 0x89e <__stack+0x3f>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 8a2:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 8a4:	d9 f7       	brne	.-10     	; 0x89c <__stack+0x3d>
+											_delay_ms(100);
+											display_time();
+ 8a6:	0e 94 8c 02 	call	0x518	; 0x518 <display_time>
+ 8aa:	88 e8       	ldi	r24, 0x88	; 136
+ 8ac:	93 e1       	ldi	r25, 0x13	; 19
+ 8ae:	f5 01       	movw	r30, r10
+ 8b0:	31 97       	sbiw	r30, 0x01	; 1
+ 8b2:	f1 f7       	brne	.-4      	; 0x8b0 <__stack+0x51>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 8b4:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 8b6:	d9 f7       	brne	.-10     	; 0x8ae <__stack+0x4f>
+											_delay_ms(500);
+											display_latitude();
+ 8b8:	0e 94 ac 02 	call	0x558	; 0x558 <display_latitude>
+											display_longitude();
+ 8bc:	0e 94 e0 02 	call	0x5c0	; 0x5c0 <display_longitude>
+ 8c0:	88 e8       	ldi	r24, 0x88	; 136
+ 8c2:	93 e1       	ldi	r25, 0x13	; 19
+ 8c4:	f5 01       	movw	r30, r10
+ 8c6:	31 97       	sbiw	r30, 0x01	; 1
+ 8c8:	f1 f7       	brne	.-4      	; 0x8c6 <__stack+0x67>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 8ca:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 8cc:	d9 f7       	brne	.-10     	; 0x8c4 <__stack+0x65>
+											_delay_ms(500);
+											LCD_clear();
+ 8ce:	0e 94 6a 00 	call	0xd4	; 0xd4 <LCD_clear>
+											//display_speed();
+											//display_corse();
+											//_delay_ms(2000);
+											
+											//get_latitude();
+											gps_value=true;
+ 8d2:	70 92 48 01 	sts	0x0148, r7
+ 8d6:	af ef       	ldi	r26, 0xFF	; 255
+ 8d8:	bf ef       	ldi	r27, 0xFF	; 255
+ 8da:	f7 01       	movw	r30, r14
+ 8dc:	ea 0f       	add	r30, r26
+ 8de:	fb 1f       	adc	r31, r27
+		
+		line[i] = 0;
+
+		i=0;
+		
+		while(i>=0){
+ 8e0:	b7 ff       	sbrs	r27, 7
+ 8e2:	02 cf       	rjmp	.-508    	; 0x6e8 <gps_get+0xc4>
+	LCD_clear();
+	
+	unsigned char line[100];
+	int  i = 0;
+	
+	while(!gps_value){
+ 8e4:	80 91 48 01 	lds	r24, 0x0148
+ 8e8:	88 23       	and	r24, r24
+ 8ea:	09 f4       	brne	.+2      	; 0x8ee <__stack+0x8f>
+ 8ec:	ec ce       	rjmp	.-552    	; 0x6c6 <gps_get+0xa2>
+			}
+		}	
+	}
+	
+		
+}
+ 8ee:	cc 59       	subi	r28, 0x9C	; 156
+ 8f0:	df 4f       	sbci	r29, 0xFF	; 255
+ 8f2:	0f b6       	in	r0, 0x3f	; 63
+ 8f4:	f8 94       	cli
+ 8f6:	de bf       	out	0x3e, r29	; 62
+ 8f8:	0f be       	out	0x3f, r0	; 63
+ 8fa:	cd bf       	out	0x3d, r28	; 61
+ 8fc:	cf 91       	pop	r28
+ 8fe:	df 91       	pop	r29
+ 900:	1f 91       	pop	r17
+ 902:	0f 91       	pop	r16
+ 904:	ff 90       	pop	r15
+ 906:	ef 90       	pop	r14
+ 908:	df 90       	pop	r13
+ 90a:	cf 90       	pop	r12
+ 90c:	bf 90       	pop	r11
+ 90e:	af 90       	pop	r10
+ 910:	9f 90       	pop	r9
+ 912:	8f 90       	pop	r8
+ 914:	7f 90       	pop	r7
+ 916:	08 95       	ret
+
+00000918 <main>:
+#define A3 5
+#define A4 6
+#define button 0
+
+int main (void)
+{
+ 918:	cf 92       	push	r12
+ 91a:	df 92       	push	r13
+ 91c:	ef 92       	push	r14
+ 91e:	ff 92       	push	r15
+ 920:	0f 93       	push	r16
+ 922:	1f 93       	push	r17
+ 924:	df 93       	push	r29
+ 926:	cf 93       	push	r28
+ 928:	cd b7       	in	r28, 0x3d	; 61
+ 92a:	de b7       	in	r29, 0x3e	; 62
+ 92c:	af 97       	sbiw	r28, 0x2f	; 47
+ 92e:	0f b6       	in	r0, 0x3f	; 63
+ 930:	f8 94       	cli
+ 932:	de bf       	out	0x3e, r29	; 62
+ 934:	0f be       	out	0x3f, r0	; 63
+ 936:	cd bf       	out	0x3d, r28	; 61
+	
+	dataDir_alcohol &= ~1<<digital_output;
+ 938:	a0 98       	cbi	0x14, 0	; 20
+	DDRA &= ~1<<button;
+ 93a:	d0 98       	cbi	0x1a, 0	; 26
+	DDRA &= ~1<<buzzer;
+ 93c:	8a b3       	in	r24, 0x1a	; 26
+ 93e:	8c 7f       	andi	r24, 0xFC	; 252
+ 940:	8a bb       	out	0x1a, r24	; 26
+	DDRA |= 1<<A1 | 1<<A2 | 1<<A3 | 1<<A4; 
+ 942:	8a b3       	in	r24, 0x1a	; 26
+ 944:	88 67       	ori	r24, 0x78	; 120
+ 946:	8a bb       	out	0x1a, r24	; 26
+	
+	
+	dataDir_alcohol |= 1<<buzzer;
+ 948:	a1 9a       	sbi	0x14, 1	; 20
+	//dataDir_alcohol |= 1<<gps_vcc ;
+	
+	PORTA |= 1<<PINA0; //button
+ 94a:	d8 9a       	sbi	0x1b, 0	; 27
+	
+	PORTA &= ~(1<<A1 | 1<<A4);			//this is for motor ic to stop car
+ 94c:	8b b3       	in	r24, 0x1b	; 27
+ 94e:	87 7b       	andi	r24, 0xB7	; 183
+ 950:	8b bb       	out	0x1b, r24	; 27
+	PORTA &= ~(1<<A2 | 1<<A3);
+ 952:	8b b3       	in	r24, 0x1b	; 27
+ 954:	8f 7c       	andi	r24, 0xCF	; 207
+ 956:	8b bb       	out	0x1b, r24	; 27
+			
+	
+	
+	//for gsm
+	unsigned char number[]="+9779843358599";
+ 958:	de 01       	movw	r26, r28
+ 95a:	11 96       	adiw	r26, 0x01	; 1
+ 95c:	e6 e1       	ldi	r30, 0x16	; 22
+ 95e:	f1 e0       	ldi	r31, 0x01	; 1
+ 960:	8f e0       	ldi	r24, 0x0F	; 15
+ 962:	01 90       	ld	r0, Z+
+ 964:	0d 92       	st	X+, r0
+ 966:	81 50       	subi	r24, 0x01	; 1
+ 968:	e1 f7       	brne	.-8      	; 0x962 <main+0x4a>
+	unsigned char sms[]="https://maps.google.com/maps?q=";
+ 96a:	de 01       	movw	r26, r28
+ 96c:	50 96       	adiw	r26, 0x10	; 16
+ 96e:	e5 e2       	ldi	r30, 0x25	; 37
+ 970:	f1 e0       	ldi	r31, 0x01	; 1
+ 972:	80 e2       	ldi	r24, 0x20	; 32
+ 974:	01 90       	ld	r0, Z+
+ 976:	0d 92       	st	X+, r0
+ 978:	81 50       	subi	r24, 0x01	; 1
+ 97a:	e1 f7       	brne	.-8      	; 0x974 <main+0x5c>
+	
+	
+	//
+	
+	LCD_initial();
+ 97c:	0e 94 79 00 	call	0xf2	; 0xf2 <LCD_initial>
+ 980:	a8 ec       	ldi	r26, 0xC8	; 200
+ 982:	ea 2e       	mov	r14, r26
+ 984:	f1 2c       	mov	r15, r1
+						PORTA &= ~(1<<A2 | 1<<A3);
+		
+						
+						gps_get();
+						
+						strcat(sms,lati_final);
+ 986:	8e 01       	movw	r16, r28
+ 988:	00 5f       	subi	r16, 0xF0	; 240
+ 98a:	1f 4f       	sbci	r17, 0xFF	; 255
+						strcat(sms,longi_final);
+						_delay_ms(1500);
+						
+						if(gps_value)
+						{
+							gsm_msg_send(number,sms);									//to send the message
+ 98c:	6e 01       	movw	r12, r28
+ 98e:	08 94       	sec
+ 990:	c1 1c       	adc	r12, r1
+ 992:	d1 1c       	adc	r13, r1
+	
+	//***********************body**************************//
+	
+	while(1) 														// infinte loop
+	{	
+		LCD_initial();
+ 994:	0e 94 79 00 	call	0xf2	; 0xf2 <LCD_initial>
+		//LCD_clear();
+		
+		if(bit_is_clear(PINA,0))									//button pressed
+ 998:	c8 99       	sbic	0x19, 0	; 25
+ 99a:	75 c0       	rjmp	.+234    	; 0xa86 <main+0x16e>
+		{
+			string_location(3,0);
+ 99c:	83 e0       	ldi	r24, 0x03	; 3
+ 99e:	60 e0       	ldi	r22, 0x00	; 0
+ 9a0:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+			send_a_string("Starting...");
+ 9a4:	86 ec       	ldi	r24, 0xC6	; 198
+ 9a6:	90 e0       	ldi	r25, 0x00	; 0
+ 9a8:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+ 9ac:	80 ed       	ldi	r24, 0xD0	; 208
+ 9ae:	97 e0       	ldi	r25, 0x07	; 7
+ 9b0:	f7 01       	movw	r30, r14
+ 9b2:	31 97       	sbiw	r30, 0x01	; 1
+ 9b4:	f1 f7       	brne	.-4      	; 0x9b2 <main+0x9a>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 9b6:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 9b8:	d9 f7       	brne	.-10     	; 0x9b0 <main+0x98>
+			_delay_ms(200);
+			
+			while(1)
+			{
+				if(!bit_is_clear(PINA,1))
+ 9ba:	c9 9b       	sbis	0x19, 1	; 25
+ 9bc:	42 c0       	rjmp	.+132    	; 0xa42 <main+0x12a>
+				{
+						alcohol |= 1<<buzzer;
+ 9be:	a9 9a       	sbi	0x15, 1	; 21
+
+						//stopping car
+						PORTA &= ~(1<<A1 | 1<<A4);
+ 9c0:	8b b3       	in	r24, 0x1b	; 27
+ 9c2:	87 7b       	andi	r24, 0xB7	; 183
+ 9c4:	8b bb       	out	0x1b, r24	; 27
+						PORTA &= ~(1<<A2 | 1<<A3);
+ 9c6:	8b b3       	in	r24, 0x1b	; 27
+ 9c8:	8f 7c       	andi	r24, 0xCF	; 207
+ 9ca:	8b bb       	out	0x1b, r24	; 27
+		
+						
+						gps_get();
+ 9cc:	0e 94 12 03 	call	0x624	; 0x624 <gps_get>
+						
+						strcat(sms,lati_final);
+ 9d0:	c8 01       	movw	r24, r16
+ 9d2:	6e e6       	ldi	r22, 0x6E	; 110
+ 9d4:	71 e0       	ldi	r23, 0x01	; 1
+ 9d6:	0e 94 82 05 	call	0xb04	; 0xb04 <strcat>
+						strcat(sms,",");
+ 9da:	c8 01       	movw	r24, r16
+ 9dc:	62 ed       	ldi	r22, 0xD2	; 210
+ 9de:	70 e0       	ldi	r23, 0x00	; 0
+ 9e0:	0e 94 82 05 	call	0xb04	; 0xb04 <strcat>
+						strcat(sms,longi_final);
+ 9e4:	c8 01       	movw	r24, r16
+ 9e6:	6c e5       	ldi	r22, 0x5C	; 92
+ 9e8:	71 e0       	ldi	r23, 0x01	; 1
+ 9ea:	0e 94 82 05 	call	0xb04	; 0xb04 <strcat>
+ 9ee:	88 e9       	ldi	r24, 0x98	; 152
+ 9f0:	9a e3       	ldi	r25, 0x3A	; 58
+ 9f2:	f7 01       	movw	r30, r14
+ 9f4:	31 97       	sbiw	r30, 0x01	; 1
+ 9f6:	f1 f7       	brne	.-4      	; 0x9f4 <main+0xdc>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 9f8:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 9fa:	d9 f7       	brne	.-10     	; 0x9f2 <main+0xda>
+						_delay_ms(1500);
+						
+						if(gps_value)
+ 9fc:	80 91 48 01 	lds	r24, 0x0148
+ a00:	88 23       	and	r24, r24
+ a02:	29 f0       	breq	.+10     	; 0xa0e <main+0xf6>
+						{
+							gsm_msg_send(number,sms);									//to send the message
+ a04:	c6 01       	movw	r24, r12
+ a06:	b8 01       	movw	r22, r16
+ a08:	0e 94 00 01 	call	0x200	; 0x200 <gsm_msg_send>
+ a0c:	c3 cf       	rjmp	.-122    	; 0x994 <main+0x7c>
+						} 
+						else 
+						{
+							LCD_clear();
+ a0e:	0e 94 6a 00 	call	0xd4	; 0xd4 <LCD_clear>
+							string_location(1,0);
+ a12:	81 e0       	ldi	r24, 0x01	; 1
+ a14:	60 e0       	ldi	r22, 0x00	; 0
+ a16:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+							send_a_string("Couldn't locate:");
+ a1a:	84 ed       	ldi	r24, 0xD4	; 212
+ a1c:	90 e0       	ldi	r25, 0x00	; 0
+ a1e:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+							string_location(1,1);
+ a22:	81 e0       	ldi	r24, 0x01	; 1
+ a24:	61 e0       	ldi	r22, 0x01	; 1
+ a26:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+							send_a_string("Check gps");
+ a2a:	85 ee       	ldi	r24, 0xE5	; 229
+ a2c:	90 e0       	ldi	r25, 0x00	; 0
+ a2e:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+ a32:	80 e1       	ldi	r24, 0x10	; 16
+ a34:	97 e2       	ldi	r25, 0x27	; 39
+ a36:	f7 01       	movw	r30, r14
+ a38:	31 97       	sbiw	r30, 0x01	; 1
+ a3a:	f1 f7       	brne	.-4      	; 0xa38 <main+0x120>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ a3c:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ a3e:	d9 f7       	brne	.-10     	; 0xa36 <main+0x11e>
+ a40:	a9 cf       	rjmp	.-174    	; 0x994 <main+0x7c>
+						break;
+				}
+				
+				else
+				{
+					alcohol &= ~1<<buzzer;
+ a42:	85 b3       	in	r24, 0x15	; 21
+ a44:	8c 7f       	andi	r24, 0xFC	; 252
+ a46:	85 bb       	out	0x15, r24	; 21
+					alcohol |= 1<<PINC3;
+ a48:	ab 9a       	sbi	0x15, 3	; 21
+					
+					PORTA |= 1<<A1 | 1<<A4;				//to start car
+ a4a:	8b b3       	in	r24, 0x1b	; 27
+ a4c:	88 64       	ori	r24, 0x48	; 72
+ a4e:	8b bb       	out	0x1b, r24	; 27
+					PORTA &= ~(1<<A2 | 1<<A3);
+ a50:	8b b3       	in	r24, 0x1b	; 27
+ a52:	8f 7c       	andi	r24, 0xCF	; 207
+ a54:	8b bb       	out	0x1b, r24	; 27
+					
+					string_location(3,0);
+ a56:	83 e0       	ldi	r24, 0x03	; 3
+ a58:	60 e0       	ldi	r22, 0x00	; 0
+ a5a:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+					send_a_string("No Alcohol");
+ a5e:	8f ee       	ldi	r24, 0xEF	; 239
+ a60:	90 e0       	ldi	r25, 0x00	; 0
+ a62:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+					string_location(2,1);
+ a66:	82 e0       	ldi	r24, 0x02	; 2
+ a68:	61 e0       	ldi	r22, 0x01	; 1
+ a6a:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+					send_a_string("Well Done!!!");
+ a6e:	8a ef       	ldi	r24, 0xFA	; 250
+ a70:	90 e0       	ldi	r25, 0x00	; 0
+ a72:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+ a76:	80 e1       	ldi	r24, 0x10	; 16
+ a78:	97 e2       	ldi	r25, 0x27	; 39
+ a7a:	f7 01       	movw	r30, r14
+ a7c:	31 97       	sbiw	r30, 0x01	; 1
+ a7e:	f1 f7       	brne	.-4      	; 0xa7c <main+0x164>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ a80:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ a82:	d9 f7       	brne	.-10     	; 0xa7a <main+0x162>
+ a84:	9a cf       	rjmp	.-204    	; 0x9ba <main+0xa2>
+				}
+			}
+		}
+		else
+		{
+			string_location(3,0);
+ a86:	83 e0       	ldi	r24, 0x03	; 3
+ a88:	60 e0       	ldi	r22, 0x00	; 0
+ a8a:	0e 94 a2 00 	call	0x144	; 0x144 <string_location>
+			send_a_string("Standing By...");
+ a8e:	87 e0       	ldi	r24, 0x07	; 7
+ a90:	91 e0       	ldi	r25, 0x01	; 1
+ a92:	0e 94 ac 00 	call	0x158	; 0x158 <send_a_string>
+ a96:	7e cf       	rjmp	.-260    	; 0x994 <main+0x7c>
+
+00000a98 <__udivmodhi4>:
+ a98:	aa 1b       	sub	r26, r26
+ a9a:	bb 1b       	sub	r27, r27
+ a9c:	51 e1       	ldi	r21, 0x11	; 17
+ a9e:	07 c0       	rjmp	.+14     	; 0xaae <__udivmodhi4_ep>
+
+00000aa0 <__udivmodhi4_loop>:
+ aa0:	aa 1f       	adc	r26, r26
+ aa2:	bb 1f       	adc	r27, r27
+ aa4:	a6 17       	cp	r26, r22
+ aa6:	b7 07       	cpc	r27, r23
+ aa8:	10 f0       	brcs	.+4      	; 0xaae <__udivmodhi4_ep>
+ aaa:	a6 1b       	sub	r26, r22
+ aac:	b7 0b       	sbc	r27, r23
+
+00000aae <__udivmodhi4_ep>:
+ aae:	88 1f       	adc	r24, r24
+ ab0:	99 1f       	adc	r25, r25
+ ab2:	5a 95       	dec	r21
+ ab4:	a9 f7       	brne	.-22     	; 0xaa0 <__udivmodhi4_loop>
+ ab6:	80 95       	com	r24
+ ab8:	90 95       	com	r25
+ aba:	bc 01       	movw	r22, r24
+ abc:	cd 01       	movw	r24, r26
+ abe:	08 95       	ret
+
+00000ac0 <__udivmodsi4>:
+ ac0:	a1 e2       	ldi	r26, 0x21	; 33
+ ac2:	1a 2e       	mov	r1, r26
+ ac4:	aa 1b       	sub	r26, r26
+ ac6:	bb 1b       	sub	r27, r27
+ ac8:	fd 01       	movw	r30, r26
+ aca:	0d c0       	rjmp	.+26     	; 0xae6 <__udivmodsi4_ep>
+
+00000acc <__udivmodsi4_loop>:
+ acc:	aa 1f       	adc	r26, r26
+ ace:	bb 1f       	adc	r27, r27
+ ad0:	ee 1f       	adc	r30, r30
+ ad2:	ff 1f       	adc	r31, r31
+ ad4:	a2 17       	cp	r26, r18
+ ad6:	b3 07       	cpc	r27, r19
+ ad8:	e4 07       	cpc	r30, r20
+ ada:	f5 07       	cpc	r31, r21
+ adc:	20 f0       	brcs	.+8      	; 0xae6 <__udivmodsi4_ep>
+ ade:	a2 1b       	sub	r26, r18
+ ae0:	b3 0b       	sbc	r27, r19
+ ae2:	e4 0b       	sbc	r30, r20
+ ae4:	f5 0b       	sbc	r31, r21
+
+00000ae6 <__udivmodsi4_ep>:
+ ae6:	66 1f       	adc	r22, r22
+ ae8:	77 1f       	adc	r23, r23
+ aea:	88 1f       	adc	r24, r24
+ aec:	99 1f       	adc	r25, r25
+ aee:	1a 94       	dec	r1
+ af0:	69 f7       	brne	.-38     	; 0xacc <__udivmodsi4_loop>
+ af2:	60 95       	com	r22
+ af4:	70 95       	com	r23
+ af6:	80 95       	com	r24
+ af8:	90 95       	com	r25
+ afa:	9b 01       	movw	r18, r22
+ afc:	ac 01       	movw	r20, r24
+ afe:	bd 01       	movw	r22, r26
+ b00:	cf 01       	movw	r24, r30
+ b02:	08 95       	ret
+
+00000b04 <strcat>:
+ b04:	fb 01       	movw	r30, r22
+ b06:	dc 01       	movw	r26, r24
+ b08:	0d 90       	ld	r0, X+
+ b0a:	00 20       	and	r0, r0
+ b0c:	e9 f7       	brne	.-6      	; 0xb08 <strcat+0x4>
+ b0e:	11 97       	sbiw	r26, 0x01	; 1
+ b10:	01 90       	ld	r0, Z+
+ b12:	0d 92       	st	X+, r0
+ b14:	00 20       	and	r0, r0
+ b16:	e1 f7       	brne	.-8      	; 0xb10 <strcat+0xc>
+ b18:	08 95       	ret
+
+00000b1a <_exit>:
+ b1a:	f8 94       	cli
+
+00000b1c <__stop_program>:
+ b1c:	ff cf       	rjmp	.-2      	; 0xb1c <__stop_program>
